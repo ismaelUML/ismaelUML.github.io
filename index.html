@@ -15,7 +15,7 @@
 
     <!-- Desktop Shortcut Icons -->
     <div class="desktop-shortcuts">
-      <div class="desktop-icon-btn" id="icon-mycomputer" title="My Computer">
+      <div class="desktop-icon-btn" id="icon-mycomputer" title="My Computer (System Specs)" role="button" tabindex="0">
         <svg class="desktop-icon-img" viewBox="0 0 48 48" fill="none">
           <rect x="6" y="8" width="36" height="26" rx="2" fill="#E6F2FF" stroke="#0C4A8A" stroke-width="2"/>
           <rect x="10" y="12" width="28" height="18" fill="#1864B4"/>
@@ -23,10 +23,10 @@
           <rect x="18" y="34" width="12" height="4" fill="#99C2EC" stroke="#0C4A8A" stroke-width="1.5"/>
           <rect x="14" y="38" width="20" height="3" rx="1" fill="#CADDF4" stroke="#0C4A8A" stroke-width="1.5"/>
         </svg>
-        <span>我的电脑</span>
+        <span data-i18n="shortcut_mycomputer">Mi PC</span>
       </div>
 
-      <div class="desktop-icon-btn" id="icon-portfolio" title="Open Portfolio Window">
+      <div class="desktop-icon-btn" id="icon-portfolio" title="Open Portfolio Messenger Window" role="button" tabindex="0">
         <svg class="desktop-icon-img" viewBox="0 0 48 48" fill="none">
           <circle cx="24" cy="24" r="18" fill="url(#blueBubble)" stroke="#FFFFFF" stroke-width="2"/>
           <defs>
@@ -38,10 +38,19 @@
           </defs>
           <text x="24" y="31" font-size="20" font-family="serif" font-weight="bold" font-style="italic" fill="#FFFFFF" text-anchor="middle">i</text>
         </svg>
-        <span>小蓝道</span>
+        <span data-i18n="shortcut_messenger">小蓝道</span>
       </div>
 
-      <a href="https://github.com/ismaelUML" target="_blank" rel="noopener noreferrer" class="desktop-icon-btn" title="Visit GitHub Profile">
+      <div class="desktop-icon-btn" id="icon-projects" title="Open Projects Explorer" role="button" tabindex="0">
+        <svg class="desktop-icon-img" viewBox="0 0 48 48" fill="none">
+          <path d="M8 12C8 10.8954 8.89543 10 10 10H20L24 14H38C39.1046 14 40 14.8954 40 16V36C40 37.1046 39.1046 38 38 38H10C8.89543 38 8 37.1046 8 36V12Z" fill="#F8CA4D" stroke="#A86E18" stroke-width="2"/>
+          <path d="M6 18H42L39 36H9L6 18Z" fill="#FFE58F" stroke="#A86E18" stroke-width="1.5"/>
+          <rect x="14" y="22" width="20" height="2" rx="1" fill="#D99B26"/>
+        </svg>
+        <span data-i18n="shortcut_projects">Proyectos</span>
+      </div>
+
+      <a href="https://github.com/ismaelUML" target="_blank" rel="noopener noreferrer" class="desktop-icon-btn" title="Visit GitHub Profile (@ismaelUML)">
         <svg class="desktop-icon-img" viewBox="0 0 48 48" fill="none">
           <circle cx="24" cy="24" r="19" fill="#1E2327" stroke="#60A5FA" stroke-width="1.5"/>
           <path fill-rule="evenodd" clip-rule="evenodd" d="M24 10C16.27 10 10 16.27 10 24C10 30.19 14.02 35.43 19.59 37.28C20.29 37.41 20.54 36.98 20.54 36.61C20.54 36.28 20.53 35.19 20.52 34.03C16.63 34.88 15.81 32.36 15.81 32.36C15.17 30.74 14.25 30.31 14.25 30.31C12.98 29.44 14.35 29.46 14.35 29.46C15.75 29.56 16.49 30.9 16.49 30.9C17.74 33.04 19.77 32.42 20.57 32.06C20.7 31.15 21.06 30.53 21.46 30.18C18.35 29.83 15.09 28.62 15.09 23.25C15.09 21.72 15.63 20.47 16.53 19.49C16.38 19.14 15.9 17.71 16.67 15.78C16.67 15.78 17.84 15.41 20.52 17.22C21.64 16.91 22.82 16.75 24 16.75C25.18 16.75 26.36 16.91 27.48 17.22C30.15 15.41 31.32 15.78 31.32 15.78C32.1 17.71 31.62 19.14 31.47 19.49C32.37 20.47 32.91 21.72 32.91 23.25C32.91 28.64 29.64 29.82 26.52 30.17C27.02 30.6 27.47 31.46 27.47 32.78C27.47 34.67 27.45 36.19 27.45 36.61C27.45 36.98 27.7 37.42 28.42 37.28C33.98 35.43 38 30.19 38 24C38 16.27 31.73 10 24 10Z" fill="#FFFFFF"/>
@@ -49,13 +58,13 @@
         <span>GitHub</span>
       </a>
 
-      <div class="desktop-icon-btn" id="icon-recyclebin" title="Recycle Bin">
+      <div class="desktop-icon-btn" id="icon-recyclebin" title="Recycle Bin" role="button" tabindex="0">
         <svg class="desktop-icon-img" viewBox="0 0 48 48" fill="none">
           <path d="M14 16L17 40H31L34 16" fill="#CBE0F8" stroke="#0D4685" stroke-width="2"/>
           <path d="M11 14H37M20 10H28" stroke="#0D4685" stroke-width="2.5" stroke-linecap="round"/>
           <path d="M20 20V36M24 20V36M28 20V36" stroke="#4F8AC9" stroke-width="1.5"/>
         </svg>
-        <span>回收站</span>
+        <span data-i18n="shortcut_recyclebin">Papelera</span>
       </div>
     </div>
 
@@ -80,62 +89,73 @@
         <div class="menubar-menus">
           <!-- File Menu -->
           <div class="menu-item-wrapper">
-            <button class="menu-item-btn" id="menu-file">文件(<u>F</u>)</button>
+            <button class="menu-item-btn" id="menu-file"><span data-i18n="menu_file">Archivo(<u>F</u>)</span></button>
             <div class="dropdown-menu" id="dropdown-file">
-              <a href="https://github.com/ismaelUML" target="_blank" rel="noopener"><span>🌐 Open GitHub Profile</span><kbd>Alt+G</kbd></a>
-              <a href="https://github.com/ismaelUML?tab=repositories" target="_blank" rel="noopener"><span>📂 Browse Repositories</span><kbd>Alt+R</kbd></a>
+              <a href="https://github.com/ismaelUML" target="_blank" rel="noopener"><span>🌐 Abrir Perfil GitHub</span><kbd>Alt+G</kbd></a>
+              <button id="menu-open-projects"><span>📂 Explorador de Proyectos</span><kbd>Alt+P</kbd></button>
+              <button id="menu-open-sysprop"><span>💻 Propiedades del Sistema</span><kbd>Alt+S</kbd></button>
               <div class="dropdown-divider"></div>
-              <button id="menu-sound-toggle"><span>🔊 Toggle Sound FX</span><kbd>ON</kbd></button>
-              <button id="menu-save-profile"><span>💾 Bookmark Page</span><kbd>Ctrl+D</kbd></button>
+              <button id="menu-sound-toggle"><span>🔊 Sonido Web Audio</span><kbd id="menu-sound-kbd">ON</kbd></button>
+              <button id="menu-save-profile"><span>💾 Guardar en Favoritos</span><kbd>Ctrl+D</kbd></button>
               <div class="dropdown-divider"></div>
-              <button id="menu-exit"><span>✕ Minimize Window</span><kbd>Alt+F4</kbd></button>
+              <button id="menu-exit"><span>✕ Minimizar Ventana</span><kbd>Alt+F4</kbd></button>
             </div>
           </div>
 
           <!-- Friends Menu -->
           <div class="menu-item-wrapper">
-            <button class="menu-item-btn" id="menu-friends">朋友(<u>B</u>)</button>
+            <button class="menu-item-btn" id="menu-friends"><span data-i18n="menu_friends">Contactos(<u>C</u>)</span></button>
             <div class="dropdown-menu" id="dropdown-friends">
-              <button id="menu-add-friend-action"><span>⭐ Add Friend (Follow)</span></button>
-              <button id="menu-quick-shout"><span>💬 Jump to Shoutbox</span></button>
+              <button id="menu-add-friend-action"><span>⭐ Seguir / Copiar GitHub</span></button>
+              <button id="menu-quick-shout"><span>💬 Escribir en Shoutbox</span></button>
               <div class="dropdown-divider"></div>
-              <a href="https://github.com/ismaelUML" target="_blank"><span>👤 Contact: @ismaelUML</span></a>
+              <a href="https://github.com/ismaelUML" target="_blank"><span>👤 Contacto: @ismaelUML</span></a>
             </div>
           </div>
 
           <!-- Tools Menu -->
           <div class="menu-item-wrapper">
-            <button class="menu-item-btn" id="menu-tools">功能(<u>A</u>)</button>
+            <button class="menu-item-btn" id="menu-tools"><span data-i18n="menu_tools">Herramientas(<u>H</u>)</span></button>
             <div class="dropdown-menu" id="dropdown-tools">
-              <button id="menu-play-music"><span>▶ Play/Pause City Pop</span></button>
-              <button id="menu-next-track"><span>⏭ Next Track</span></button>
+              <button id="menu-play-music"><span>▶ Reproducir City Pop</span></button>
+              <button id="menu-next-track"><span>⏭ Siguiente Pista</span></button>
               <div class="dropdown-divider"></div>
-              <button id="menu-clear-chat"><span>🧹 Clear Local Chat</span></button>
+              <button id="menu-clear-chat"><span>🧹 Limpiar Shoutbox</span></button>
             </div>
           </div>
 
           <!-- Settings Menu -->
           <div class="menu-item-wrapper">
-            <button class="menu-item-btn" id="menu-settings">设置(<u>T</u>)</button>
+            <button class="menu-item-btn" id="menu-settings"><span data-i18n="menu_settings">Opciones(<u>O</u>)</span></button>
             <div class="dropdown-menu" id="dropdown-settings">
-              <button id="menu-toggle-wallpaper"><span>🖼️ Toggle Wallpaper</span></button>
-              <button id="menu-info-dialog"><span>ⓘ About Portfolio v2.0</span></button>
+              <button id="menu-toggle-wallpaper"><span>🖼️ Cambiar Fondo</span></button>
+              <div class="dropdown-divider"></div>
+              <button id="theme-luna"><span>🎨 Tema: Luna Blue (XP)</span></button>
+              <button id="theme-royale"><span>🌌 Tema: Royale Noir</span></button>
+              <button id="theme-classic"><span>🪟 Tema: Classic 2000</span></button>
+              <div class="dropdown-divider"></div>
+              <button id="menu-info-dialog"><span>ⓘ Acerca de Portfolio v2.5</span></button>
             </div>
           </div>
         </div>
 
-        <!-- Menubar Right Controls: Select filter & Search -->
+        <!-- Menubar Right Controls: Language Selector, Filter & Search -->
         <div class="menubar-controls">
+          <select class="menu-select lang-select" id="language-switcher" title="Language / Idioma">
+            <option value="es">🇪🇸 Español</option>
+            <option value="en">🇬🇧 English</option>
+            <option value="y2k">⛩️ Y2K / 中文</option>
+          </select>
           <select class="menu-select" id="category-filter" title="Filter section">
-            <option value="all">全部的 (All)</option>
-            <option value="bio">个人简介 (About)</option>
-            <option value="projects">项目库 (Projects)</option>
-            <option value="shoutbox">留言板 (Guestbook)</option>
-            <option value="music">音乐 (City Pop)</option>
+            <option value="all">Todas las secciones</option>
+            <option value="bio">Sobre Mí / Bio</option>
+            <option value="projects">Proyectos (4)</option>
+            <option value="shoutbox">Shoutbox / Chat</option>
+            <option value="music">Música City Pop</option>
           </select>
           <div class="menu-search-wrap">
-            <input type="text" class="menu-search-input" id="quick-search" placeholder="搜索... / Search">
-            <button class="retro-btn" id="btn-search-go">选择</button>
+            <input type="text" class="menu-search-input" id="quick-search" placeholder="Buscar proyecto o skill...">
+            <button class="retro-btn" id="btn-search-go">Buscar</button>
           </div>
         </div>
       </div>
@@ -186,10 +206,10 @@
 
             <!-- Glossy Navigation Tabs -->
             <div class="nav-tab-row">
-              <button class="tab-btn active" data-tab="tab-notes">笔记</button>
-              <button class="tab-btn" data-tab="tab-chat">对话</button>
-              <button class="tab-btn" data-tab="tab-info">信息</button>
-              <button class="tab-btn" data-tab="tab-media">媒体</button>
+              <button class="tab-btn active" data-tab="tab-notes" data-i18n="tab_notes">Notas</button>
+              <button class="tab-btn" data-tab="tab-chat" data-i18n="tab_chat">Chat</button>
+              <button class="tab-btn" data-tab="tab-info" data-i18n="tab_info">Info</button>
+              <button class="tab-btn" data-tab="tab-media" data-i18n="tab_media">Proyectos</button>
             </div>
           </div>
 
@@ -199,7 +219,7 @@
             <!-- Vertical Icon Toolbar (XP icons) -->
             <div class="vertical-icon-bar">
               <!-- Globe -->
-              <button class="v-tool-btn active" id="tool-globe" title="GitHub Web Links">
+              <button class="v-tool-btn active" id="tool-globe" title="GitHub Web Links" aria-label="Web Links">
                 <svg viewBox="0 0 32 32" fill="none">
                   <circle cx="16" cy="16" r="14" fill="url(#globeGrad)" stroke="#19529B" stroke-width="1.5"/>
                   <ellipse cx="16" cy="16" rx="7" ry="14" stroke="#FFFFFF" stroke-width="1.2" opacity="0.8"/>
@@ -216,7 +236,7 @@
               </button>
 
               <!-- iPod / MP3 Player -->
-              <button class="v-tool-btn" id="tool-ipod" title="Music & City Pop Player">
+              <button class="v-tool-btn" id="tool-ipod" title="Music & City Pop Player" aria-label="Music Player">
                 <svg viewBox="0 0 32 32" fill="none">
                   <rect x="7" y="3" width="18" height="26" rx="4" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1.5"/>
                   <rect x="10" y="6" width="12" height="10" rx="1" fill="#4B95E2" stroke="#2562A2" stroke-width="1"/>
@@ -226,7 +246,7 @@
               </button>
 
               <!-- Calendar / Desk Organizer -->
-              <button class="v-tool-btn" id="tool-calendar" title="Activity & Milestones">
+              <button class="v-tool-btn" id="tool-calendar" title="Activity & Milestones" aria-label="Activity">
                 <svg viewBox="0 0 32 32" fill="none">
                   <rect x="5" y="7" width="22" height="20" rx="2" fill="#FFFFFF" stroke="#1D538F" stroke-width="1.5"/>
                   <rect x="5" y="7" width="22" height="6" fill="#D32F2F"/>
@@ -241,7 +261,7 @@
               </button>
 
               <!-- Recycle Bin -->
-              <button class="v-tool-btn" id="tool-trash" title="Recycle Bin (Easter Egg)">
+              <button class="v-tool-btn" id="tool-trash" title="Recycle Bin (Easter Egg)" aria-label="Recycle Bin">
                 <svg viewBox="0 0 32 32" fill="none">
                   <path d="M9 11L11 27H21L23 11" fill="#D3E5F9" stroke="#19529B" stroke-width="1.5"/>
                   <path d="M7 10H25M13 7H19" stroke="#19529B" stroke-width="2" stroke-linecap="round"/>
@@ -257,7 +277,7 @@
               <div class="db-card-header">
                 <div class="db-header-title">
                   <span class="fold-arrow">⌵</span>
-                  <span>我的账户!</span>
+                  <span data-i18n="db_myaccount">Mi Perfil</span>
                 </div>
                 <div class="db-badge-sub">
                   <span>ⓘ —user database...</span>
@@ -267,8 +287,8 @@
               <!-- Database Body Content -->
               <div class="db-card-body" id="db-content-area">
                 <div class="db-bio-text">
-                  <strong>Iván Ismael Cardozo</strong> — Developer based in Argentina 🇦🇷.
-                  Specialized in web development, QML desktop interfaces, system utilities, and nostalgic Y2K/Frutiger Aero aesthetic craft.
+                  <strong>Iván Ismael Cardozo</strong> — Desarrollador en Argentina 🇦🇷.
+                  Especializado en interfaces de escritorio en QML/Qt, desarrollo web moderno, utilidades de sistemas y estética nostálgica Y2K/Frutiger Aero.
                 </div>
 
                 <div class="linked-webs-section">
@@ -305,11 +325,11 @@
               <div class="db-card-footer">
                 <button class="db-action-btn" id="btn-add-friend">
                   <span>⭐</span>
-                  <span>加好友</span>
+                  <span data-i18n="btn_follow">Seguir en GitHub</span>
                 </button>
                 <button class="db-action-btn" id="btn-search-friend">
-                  <span>☆</span>
-                  <span>搜索好友</span>
+                  <span>📂</span>
+                  <span data-i18n="btn_explore">Abrir Proyectos</span>
                 </button>
               </div>
             </div>
@@ -331,8 +351,8 @@
             <!-- Audio Player Widget -->
             <div class="audio-player-widget">
               <div class="audio-header-pills">
-                <button class="pill-btn active" id="btn-recent-play">最近播放...</button>
-                <button class="pill-btn" id="btn-recommend">你的推荐..</button>
+                <button class="pill-btn active" id="btn-recent-play"><span data-i18n="music_nowplaying">Sonando Ahora</span></button>
+                <button class="pill-btn" id="btn-recommend"><span data-i18n="music_recommend">Recomendado</span></button>
               </div>
 
               <!-- Track rows with play buttons -->
@@ -341,7 +361,7 @@
                 <div class="audio-track-row playing" id="track-1" data-track="0">
                   <div class="track-left">
                     <div class="play-circle-btn">▶</div>
-                    <span class="track-name-text">- 角松敏生 ... Secret Lover</span>
+                    <span class="track-name-text">角松敏生 (Toshiki Kadomatsu) - Secret Lover</span>
                   </div>
                   <div class="equalizer-bars">
                     <span class="eq-bar"></span>
@@ -355,7 +375,7 @@
                 <div class="audio-track-row" id="track-2" data-track="1">
                   <div class="track-left">
                     <div class="play-circle-btn">▶</div>
-                    <span class="track-name-text">風圧 - 山下達郎 ... Kokoro (Sparkle)</span>
+                    <span class="track-name-text">山下達郎 (Tatsuro Yamashita) - Sparkle</span>
                   </div>
                   <div class="equalizer-bars">
                     <span class="eq-bar"></span>
@@ -376,18 +396,18 @@
               <div class="feed-header">
                 <div class="feed-header-title">
                   <span>▼</span>
-                  <span>我的订阅源</span>
+                  <span data-i18n="feed_title">Mis Novedades</span>
                 </div>
-                <div class="feed-date-tag" id="feed-date">3月21日2005年</div>
+                <div class="feed-date-tag" id="feed-date">Actualizado 2026</div>
               </div>
 
               <!-- Ruled Notepad Body -->
               <div class="notebook-body" id="feed-notebook">
                 <div class="feed-item">
-                  <span class="feed-item-title">BYI...</span>
+                  <span class="feed-item-title">SOBRE MÍ...</span>
                   <p class="feed-item-desc">
-                    Hola! Bienvenido a mi rincón web inspirado en la era dorada de Windows XP y MSN.
-                    Programador enfocado en interfaces elegantes y software funcional.
+                    ¡Hola! Bienvenido a mi rincón web inspirado en la era dorada de Windows XP y MSN.
+                    Programador enfocado en software funcional, interfaces interactivas y arquitectura robusta.
                   </p>
                 </div>
 
@@ -399,24 +419,29 @@
                 </div>
 
                 <div class="feed-item">
-                  <span class="feed-item-title">DNI...</span>
+                  <span class="feed-item-title">PROYECTOS DESTACADOS...</span>
                   <p class="feed-item-desc">
-                    No dudes en explorar mis proyectos destacados y clonar lo que te sirva:
+                    Explora los repositorios destacados haciendo clic en sus accesos:
                   </p>
                   <div class="repo-mini-card">
-                    <a href="https://github.com/ismaelUML/Pocket-AntiGravityIDE" target="_blank">Pocket-AntiGravityIDE</a>
-                    <span class="repo-tag">Tool</span>
-                    <div style="font-size: 10px; color: #517196;">Agentic developer tools and IDE enhancements.</div>
+                    <a href="https://github.com/ismaelUML/Pocket-AntiGravityIDE" target="_blank" rel="noopener">Pocket-AntiGravityIDE</a>
+                    <span class="repo-tag">Tooling</span>
+                    <div style="font-size: 10px; color: #517196;">Configuración y herramientas para flujos con agentes de desarrollo.</div>
                   </div>
                   <div class="repo-mini-card">
-                    <a href="https://github.com/ismaelUML/RathonWare" target="_blank">RathonWare</a>
+                    <a href="https://github.com/ismaelUML/RathonWare" target="_blank" rel="noopener">RathonWare</a>
                     <span class="repo-tag">QML</span>
-                    <div style="font-size: 10px; color: #517196;">High-performance desktop user interface.</div>
+                    <div style="font-size: 10px; color: #517196;">Interfaz nativa de alto rendimiento en Qt/QML y C++.</div>
                   </div>
                   <div class="repo-mini-card">
-                    <a href="https://github.com/ismaelUML/RobosMDP-Remix" target="_blank">RobosMDP-Remix</a>
+                    <a href="https://github.com/ismaelUML/RobosMDP-Remix" target="_blank" rel="noopener">RobosMDP-Remix</a>
                     <span class="repo-tag">JS</span>
-                    <div style="font-size: 10px; color: #517196;">Interactive web application & logic engine.</div>
+                    <div style="font-size: 10px; color: #517196;">Aplicación interactiva y motor de lógica en tiempo real.</div>
+                  </div>
+                  <div class="repo-mini-card">
+                    <a href="https://github.com/ismaelUML/AdvancedMonitor" target="_blank" rel="noopener">AdvancedMonitor</a>
+                    <span class="repo-tag">System</span>
+                    <div style="font-size: 10px; color: #517196;">Telemetría y dashboard para monitorización de sistemas.</div>
                   </div>
                 </div>
               </div>
@@ -428,7 +453,7 @@
                 <img src="pfp/2967b03acaab18c50c1518d110d6b7a1.gif" alt="ismaelUML" class="chat-header-avatar">
                 <div class="chat-header-info">
                   <div class="chat-header-name">ismaelUML</div>
-                  <div class="chat-header-handle">@username (Online)</div>
+                  <div class="chat-header-handle">@ismaelUML (Online)</div>
                 </div>
               </div>
 
@@ -436,7 +461,7 @@
               <div class="chat-messages-scroll" id="chat-messages-box">
                 <!-- Message 1 -->
                 <div class="chat-bubble-row">
-                  <img src="pfp/2967b03acaab18c50c1518d110d6b7a1.gif" class="chat-bubble-avatar">
+                  <img src="pfp/2967b03acaab18c50c1518d110d6b7a1.gif" class="chat-bubble-avatar" alt="Avatar">
                   <div class="chat-bubble-content">
                     <div class="chat-bubble-meta">
                       <span>ismaelUML</span>
@@ -444,22 +469,22 @@
                     </div>
                     <div class="chat-bubble-text">
                       <span class="kaomoji">٩( 'ω' )و</span>
-                      <span>Donec vehicula lacus eget dui facilisis, sit amet... Bienvenido a mi portfolio estilo Y2K!</span>
+                      <span>¡Hola a todos! Bienvenidos a mi rincón web estilo Windows XP / MSN Messenger. Exploren mis proyectos y siéntanse libres de dejar un mensaje en el shoutbox.</span>
                     </div>
                   </div>
                 </div>
 
                 <!-- Message 2 -->
                 <div class="chat-bubble-row">
-                  <img src="pfp/2967b03acaab18c50c1518d110d6b7a1.gif" class="chat-bubble-avatar">
+                  <img src="pfp/2967b03acaab18c50c1518d110d6b7a1.gif" class="chat-bubble-avatar" alt="Avatar">
                   <div class="chat-bubble-content">
                     <div class="chat-bubble-meta">
                       <span>ismaelUML</span>
                       <span class="chat-bubble-time">18:10</span>
                     </div>
                     <div class="chat-bubble-text">
-                      <span class="kaomoji">(-ω-、)</span>
-                      <span>Curabitur arcu lectus, faucibus... Puedes dejarme un mensaje en el recuadro de abajo!</span>
+                      <span class="kaomoji">(*^▽^*)</span>
+                      <span>Trabajando en interfaces en QML, herramientas para desarrolladores y desarrollo web moderno. ¡Pueden abrir "Mi PC" o "Proyectos" para ver los detalles técnicos!</span>
                     </div>
                   </div>
                 </div>
@@ -467,8 +492,8 @@
 
               <!-- Chat Input Bar -->
               <div class="chat-input-bar">
-                <input type="text" class="chat-text-input" id="chat-input" placeholder="输入信息... / Type a note...">
-                <button class="chat-send-btn" id="chat-send-btn">发送</button>
+                <input type="text" class="chat-text-input" id="chat-input" placeholder="Escribe un mensaje en el shoutbox...">
+                <button class="chat-send-btn" id="chat-send-btn" data-i18n="chat_send">Enviar</button>
               </div>
             </div>
           </div>
@@ -478,12 +503,298 @@
       <!-- Window Status Bar -->
       <div class="window-statusbar">
         <div class="statusbar-left">
-          <input type="text" class="statusbar-input" id="statusbar-query" placeholder="搜索... / Ready">
-          <button class="statusbar-done-btn" id="statusbar-done-btn">完成</button>
+          <input type="text" class="statusbar-input" id="statusbar-query" placeholder="Buscar / Ready...">
+          <button class="statusbar-done-btn" id="statusbar-done-btn" data-i18n="btn_done">Listo</button>
         </div>
         <div class="statusbar-credits">
-          cr: @juhua on es | ismaelUML Portfolio
+          Iván Ismael Cardozo (@ismaelUML) · Portfolio OS v2.5
         </div>
+      </div>
+    </div>
+
+    <!-- ================= PROJECT EXPLORER WINDOW ================= -->
+    <div class="xp-subwindow explorer-window minimized" id="window-projects">
+      <div class="window-titlebar" id="projects-titlebar">
+        <div class="titlebar-left">
+          <svg width="16" height="16" viewBox="0 0 48 48" fill="none">
+            <path d="M8 12C8 10.8954 8.89543 10 10 10H20L24 14H38C39.1046 14 40 14.8954 40 16V36C40 37.1046 39.1046 38 38 38H10C8.89543 38 8 37.1046 8 36V12Z" fill="#FFE58F" stroke="#FFFFFF" stroke-width="2"/>
+          </svg>
+          <span class="window-title-text" data-i18n="projects_title">C:\Proyectos\ismaelUML</span>
+        </div>
+        <div class="titlebar-controls">
+          <button class="win-btn minimize" id="btn-projects-min" title="Minimize">_</button>
+          <button class="win-btn maximize" id="btn-projects-max" title="Maximize">🗖</button>
+          <button class="win-btn close" id="btn-projects-close" title="Close">✕</button>
+        </div>
+      </div>
+
+      <div class="explorer-addressbar">
+        <span class="address-label" data-i18n="address_label">Dirección:</span>
+        <div class="address-box">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#E6A23C"><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
+          <span class="address-text">C:\Proyectos\ismaelUML\</span>
+        </div>
+        <button class="retro-btn" id="btn-projects-go">Ir ➔</button>
+      </div>
+
+      <div class="explorer-body">
+        <!-- Sidebar Tasks -->
+        <div class="explorer-sidebar">
+          <div class="sidebar-group">
+            <div class="sidebar-group-header">
+              <span>📁 Tareas de Archivo</span>
+            </div>
+            <div class="sidebar-group-links">
+              <a href="https://github.com/ismaelUML" target="_blank" rel="noopener" class="sidebar-link">
+                <span>🌐</span> GitHub de Iván
+              </a>
+              <a href="https://github.com/ismaelUML?tab=repositories" target="_blank" rel="noopener" class="sidebar-link">
+                <span>📦</span> Repositorios Públicos
+              </a>
+              <button class="sidebar-link-btn" id="btn-filter-qml">
+                <span>⚡</span> Filtrar: QML / Qt
+              </button>
+              <button class="sidebar-link-btn" id="btn-filter-web">
+                <span>🌐</span> Filtrar: Web / JS
+              </button>
+              <button class="sidebar-link-btn active" id="btn-filter-all">
+                <span>✨</span> Ver Todos (4)
+              </button>
+            </div>
+          </div>
+
+          <div class="sidebar-group" style="margin-top: 10px;">
+            <div class="sidebar-group-header">
+              <span>ℹ️ Información</span>
+            </div>
+            <div style="font-size: 11px; padding: 6px 10px; color: #2c4a6f; line-height: 1.4;">
+              <strong>Iván Ismael Cardozo</strong><br>
+              Proyectos de código abierto, interfaces modernas y herramientas de desarrollo.
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Project Cards Grid -->
+        <div class="explorer-grid" id="explorer-project-cards">
+          <!-- Card 1: Pocket-AntiGravityIDE -->
+          <div class="project-explorer-card" data-tags="tool web agent all">
+            <div class="proj-card-icon-header">
+              <div class="proj-badge-icon ide-icon">IDE</div>
+              <div class="proj-header-meta">
+                <h3 class="proj-title">Pocket-AntiGravityIDE</h3>
+                <span class="proj-category">Developer Tooling & Agent Workflow</span>
+              </div>
+            </div>
+            <p class="proj-desc">
+              Suite y extensiones de entorno de desarrollo para flujos de trabajo con agentes de IA. Automatización, scripts y tooling optimizado.
+            </p>
+            <div class="proj-tags">
+              <span class="tech-tag">TypeScript</span>
+              <span class="tech-tag">Node.js</span>
+              <span class="tech-tag">Agentic CLI</span>
+              <span class="tech-tag">Dev Tools</span>
+            </div>
+            <div class="proj-actions">
+              <a href="https://github.com/ismaelUML/Pocket-AntiGravityIDE" target="_blank" rel="noopener" class="retro-btn primary">
+                <span>Ver en GitHub</span> ↗
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 2: RathonWare -->
+          <div class="project-explorer-card" data-tags="qml desktop cpp all">
+            <div class="proj-card-icon-header">
+              <div class="proj-badge-icon qml-icon">QML</div>
+              <div class="proj-header-meta">
+                <h3 class="proj-title">RathonWare</h3>
+                <span class="proj-category">High-Performance Desktop UI</span>
+              </div>
+            </div>
+            <p class="proj-desc">
+              Interfaz de escritorio nativa de alto rendimiento implementada con Qt/QML y C++. Renderizado ultra fluido, animaciones nativas y bajo consumo de recursos.
+            </p>
+            <div class="proj-tags">
+              <span class="tech-tag">QML</span>
+              <span class="tech-tag">Qt 6</span>
+              <span class="tech-tag">C++</span>
+              <span class="tech-tag">Desktop GUI</span>
+            </div>
+            <div class="proj-actions">
+              <a href="https://github.com/ismaelUML/RathonWare" target="_blank" rel="noopener" class="retro-btn primary">
+                <span>Ver en GitHub</span> ↗
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 3: RobosMDP-Remix -->
+          <div class="project-explorer-card" data-tags="web js all">
+            <div class="proj-card-icon-header">
+              <div class="proj-badge-icon js-icon">JS</div>
+              <div class="proj-header-meta">
+                <h3 class="proj-title">RobosMDP-Remix</h3>
+                <span class="proj-category">Interactive Web App & Logic</span>
+              </div>
+            </div>
+            <p class="proj-desc">
+              Remix interactivo desarrollado en JavaScript puro con animaciones visuales, audio Web API dinámico y gestión de estados reactiva.
+            </p>
+            <div class="proj-tags">
+              <span class="tech-tag">JavaScript ES6+</span>
+              <span class="tech-tag">HTML5 Canvas</span>
+              <span class="tech-tag">Web Audio API</span>
+            </div>
+            <div class="proj-actions">
+              <a href="https://github.com/ismaelUML/RobosMDP-Remix" target="_blank" rel="noopener" class="retro-btn primary">
+                <span>Ver en GitHub</span> ↗
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 4: AdvancedMonitor -->
+          <div class="project-explorer-card" data-tags="python tools all">
+            <div class="proj-card-icon-header">
+              <div class="proj-badge-icon sys-icon">SYS</div>
+              <div class="proj-header-meta">
+                <h3 class="proj-title">AdvancedMonitor & ERP</h3>
+                <span class="proj-category">System Telemetry & Metrics</span>
+              </div>
+            </div>
+            <p class="proj-desc">
+              Módulo de telemetría, monitoreo de métricas y dashboard para sistemas de gestión con análisis de rendimiento en tiempo real.
+            </p>
+            <div class="proj-tags">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">SQL</span>
+              <span class="tech-tag">Telemetry</span>
+              <span class="tech-tag">REST API</span>
+            </div>
+            <div class="proj-actions">
+              <a href="https://github.com/ismaelUML/AdvancedMonitor" target="_blank" rel="noopener" class="retro-btn primary">
+                <span>Ver en GitHub</span> ↗
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="window-statusbar">
+        <span>4 proyectos disponibles en C:\Proyectos\ismaelUML</span>
+        <span class="statusbar-credits">Disco local (C:) libre: 78.4 GB</span>
+      </div>
+    </div>
+
+    <!-- ================= SYSTEM PROPERTIES WINDOW ================= -->
+    <div class="xp-subwindow sysproperties-window minimized" id="window-sysproperties">
+      <div class="window-titlebar" id="sysproperties-titlebar">
+        <div class="titlebar-left">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffffff"><path d="M4 4h16v11H4V4zm-2 13h20v2H2v-2zM9 19h6v1H9v-1z"/></svg>
+          <span class="window-title-text" data-i18n="sysprop_title">Propiedades del Sistema</span>
+        </div>
+        <div class="titlebar-controls">
+          <button class="win-btn close" id="btn-sysprop-close" title="Close">✕</button>
+        </div>
+      </div>
+
+      <div class="sysprop-tabbar">
+        <button class="sysprop-tab active" data-systab="general">General</button>
+        <button class="sysprop-tab" data-systab="hardware">Hardware / Stack</button>
+        <button class="sysprop-tab" data-systab="dev">Desarrollador</button>
+      </div>
+
+      <div class="sysprop-body">
+        <div class="sysprop-tab-pane active" id="systab-pane-general">
+          <div class="sysprop-header-info">
+            <svg class="sysprop-pc-icon" viewBox="0 0 48 48" fill="none">
+              <rect x="6" y="8" width="36" height="26" rx="2" fill="#E6F2FF" stroke="#0C4A8A" stroke-width="2"/>
+              <rect x="10" y="12" width="28" height="18" fill="#1864B4"/>
+              <rect x="18" y="34" width="12" height="4" fill="#99C2EC" stroke="#0C4A8A" stroke-width="1.5"/>
+              <rect x="14" y="38" width="20" height="3" rx="1" fill="#CADDF4" stroke="#0C4A8A" stroke-width="1.5"/>
+            </svg>
+            <div class="sysprop-text-block">
+              <strong>Sistema:</strong><br>
+              Microsoft Windows XP Luna Edition<br>
+              Professional v2026 SP3 (Portfolio Edition)<br><br>
+              <strong>Registrado a nombre de:</strong><br>
+              Iván Ismael Cardozo (@ismaelUML)<br>
+              Argentina 🇦🇷 (UTC-3)<br><br>
+              <strong>Equipo & Núcleo:</strong><br>
+              Full Stack & Systems Programmer<br>
+              Node.js, TypeScript, QML, Python, C++<br>
+              16.0 GB de RAM · Código 100% Funcional
+            </div>
+          </div>
+        </div>
+
+        <div class="sysprop-tab-pane" id="systab-pane-hardware" style="display: none;">
+          <div style="font-size: 11px; color: #102e52; line-height: 1.6;">
+            <strong>⚙️ Especificaciones Técnicas y Stack:</strong>
+            <ul style="margin-left: 18px; margin-top: 6px;">
+              <li><strong>Lenguajes:</strong> TypeScript, JavaScript, Python, QML, C++, HTML5/CSS3</li>
+              <li><strong>Frameworks & GUI:</strong> Qt 6, Node.js, Web APIs, Vanilla CSS & Glassmorphism</li>
+              <li><strong>Herramientas:</strong> Git, GitHub Actions, Antigravity IDE, Linux / PowerShell</li>
+              <li><strong>Filosofía:</strong> Cero dependencias innecesarias, renderizado eficiente</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="sysprop-tab-pane" id="systab-pane-dev" style="display: none;">
+          <div style="font-size: 11px; color: #102e52; line-height: 1.6;">
+            <strong>👤 Sobre Iván Ismael Cardozo:</strong>
+            <p style="margin-top: 6px;">
+              Desarrollador enfocado en diseñar interfaces que combinan alto rendimiento, diseño detallado y experiencia de usuario fluida.
+            </p>
+            <div style="margin-top: 10px;">
+              <strong>GitHub:</strong> <a href="https://github.com/ismaelUML" target="_blank" rel="noopener" style="color: #0b4db3;">github.com/ismaelUML</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sysprop-footer">
+        <button class="retro-btn" id="btn-sysprop-ok" style="width: 70px;">Aceptar</button>
+        <button class="retro-btn" id="btn-sysprop-cancel" style="width: 70px;">Cancelar</button>
+      </div>
+    </div>
+
+    <!-- ================= RECYCLE BIN WINDOW ================= -->
+    <div class="xp-subwindow recyclebin-window minimized" id="window-recyclebin">
+      <div class="window-titlebar" id="recyclebin-titlebar">
+        <div class="titlebar-left">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffffff"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+          <span class="window-title-text" data-i18n="recyclebin_title">Papelera de reciclaje</span>
+        </div>
+        <div class="titlebar-controls">
+          <button class="win-btn close" id="btn-recyclebin-close" title="Close">✕</button>
+        </div>
+      </div>
+
+      <div class="recyclebin-toolbar">
+        <button class="retro-btn" id="btn-empty-recyclebin">🗑️ Vaciar la papelera de reciclaje</button>
+        <button class="retro-btn" id="btn-restore-recyclebin">♻️ Restaurar todos los elementos</button>
+      </div>
+
+      <div class="recyclebin-body" id="recyclebin-file-list">
+        <div class="trash-item">
+          <span>📄 ie6_quirks_mode_fixes.css</span>
+          <span class="trash-size">14 KB</span>
+        </div>
+        <div class="trash-item">
+          <span>⚙️ monolithic_spaghetti_2020.js</span>
+          <span class="trash-size">890 KB</span>
+        </div>
+        <div class="trash-item">
+          <span>📦 heavy_framework_runtime.dll</span>
+          <span class="trash-size">124 MB</span>
+        </div>
+        <div class="trash-item">
+          <span>🐛 forgotten_null_pointer.log</span>
+          <span class="trash-size">2 KB</span>
+        </div>
+      </div>
+
+      <div class="window-statusbar">
+        <span id="recyclebin-status-text">4 objetos en la papelera</span>
+        <span class="statusbar-credits">0 bugs en producción</span>
       </div>
     </div>
   </div>
@@ -512,6 +823,161 @@
       <span id="tray-sound-icon" title="Sound: ON">🔊</span>
       <span id="tray-network-icon" title="Connected: 100 Mbps">🖧</span>
       <span id="tray-time">18:15 PM</span>
+    </div>
+  </div>
+
+  <!-- ================= WINDOWS XP START MENU ================= -->
+  <div class="xp-start-menu" id="xp-start-menu">
+    <div class="start-menu-header">
+      <div class="start-header-avatar">
+        <img src="pfp/2967b03acaab18c50c1518d110d6b7a1.gif" alt="Iván Ismael Cardozo">
+      </div>
+      <div class="start-header-user">
+        <span class="start-user-name">Iván Ismael Cardozo</span>
+        <span class="start-user-sub">@ismaelUML · Developer</span>
+      </div>
+    </div>
+
+    <div class="start-menu-body">
+      <!-- Left Column (Pinned Programs) -->
+      <div class="start-col-left">
+        <div class="start-menu-item" id="start-item-projects">
+          <div class="start-item-icon">📁</div>
+          <div class="start-item-texts">
+            <span class="start-item-title" data-i18n="start_projects">Explorador de Proyectos</span>
+            <span class="start-item-desc">Ver repositorios, stack y demos</span>
+          </div>
+        </div>
+
+        <div class="start-menu-item" id="start-item-sysprop">
+          <div class="start-item-icon">💻</div>
+          <div class="start-item-texts">
+            <span class="start-item-title" data-i18n="start_mycomputer">Mi PC (Propiedades)</span>
+            <span class="start-item-desc">Especificaciones, stack y bio</span>
+          </div>
+        </div>
+
+        <div class="start-menu-item" id="start-item-messenger">
+          <div class="start-item-icon">💬</div>
+          <div class="start-item-texts">
+            <span class="start-item-title" data-i18n="start_messenger">小蓝道 Messenger</span>
+            <span class="start-item-desc">Portfolio principal y chat</span>
+          </div>
+        </div>
+
+        <div class="start-menu-item" id="start-item-music">
+          <div class="start-item-icon">🎵</div>
+          <div class="start-item-texts">
+            <span class="start-item-title" data-i18n="start_music">City Pop Synthesizer</span>
+            <span class="start-item-desc">Música chiptune nostálgica</span>
+          </div>
+        </div>
+
+        <a href="https://github.com/ismaelUML" target="_blank" rel="noopener" class="start-menu-item">
+          <div class="start-item-icon">🌐</div>
+          <div class="start-item-texts">
+            <span class="start-item-title">Perfil de GitHub</span>
+            <span class="start-item-desc">github.com/ismaelUML</span>
+          </div>
+        </a>
+
+        <div class="start-menu-divider"></div>
+
+        <div class="start-menu-allprograms" id="start-item-allprograms">
+          <span data-i18n="start_allprograms">Todos los programas</span>
+          <span class="allprog-arrow">▶</span>
+        </div>
+      </div>
+
+      <!-- Right Column (System / Places) -->
+      <div class="start-col-right">
+        <div class="start-menu-item right-style" id="start-item-docs">
+          <div class="start-item-icon">📄</div>
+          <div class="start-item-texts">
+            <span class="start-item-title" data-i18n="start_mydocs">Mis Documentos (CV)</span>
+          </div>
+        </div>
+
+        <div class="start-menu-item right-style" id="start-item-wallpapers">
+          <div class="start-item-icon">🖼️</div>
+          <div class="start-item-texts">
+            <span class="start-item-title" data-i18n="start_wallpaper">Cambiar Fondo</span>
+          </div>
+        </div>
+
+        <div class="start-menu-item right-style" id="start-item-recycle">
+          <div class="start-item-icon">🗑️</div>
+          <div class="start-item-texts">
+            <span class="start-item-title" data-i18n="start_recycle">Papelera de reciclaje</span>
+          </div>
+        </div>
+
+        <div class="start-col-right-divider"></div>
+
+        <div class="start-menu-item right-style" id="start-item-controlpanel">
+          <div class="start-item-icon">⚙️</div>
+          <div class="start-item-texts">
+            <span class="start-item-title" data-i18n="start_controlpanel">Panel de Control (Temas)</span>
+          </div>
+        </div>
+
+        <div class="start-menu-item right-style" id="start-item-help">
+          <div class="start-item-icon">❓</div>
+          <div class="start-item-texts">
+            <span class="start-item-title" data-i18n="start_help">Ayuda y Soporte</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Start Menu Bottom Bar -->
+    <div class="start-menu-footer">
+      <button class="start-footer-btn" id="btn-start-logoff">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#E67E22"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+        <span data-i18n="start_logoff">Cerrar sesión</span>
+      </button>
+      <button class="start-footer-btn" id="btn-start-shutdown">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#E74C3C"><path d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"/></svg>
+        <span data-i18n="start_shutdown">Apagar equipo</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ================= WINDOWS XP SHUTDOWN DIALOG ================= -->
+  <div class="xp-modal-backdrop" id="modal-shutdown">
+    <div class="xp-shutdown-box">
+      <div class="shutdown-titlebar">
+        <span>Apagar el equipo</span>
+        <button class="win-btn close" id="btn-shutdown-close">✕</button>
+      </div>
+      <div class="shutdown-body">
+        <div class="shutdown-actions">
+          <div class="shutdown-action-btn" id="action-standby">
+            <div class="shutdown-circle-btn standby">💤</div>
+            <span>Suspender</span>
+          </div>
+          <div class="shutdown-action-btn" id="action-turnoff">
+            <div class="shutdown-circle-btn turnoff">🛑</div>
+            <span>Apagar</span>
+          </div>
+          <div class="shutdown-action-btn" id="action-restart">
+            <div class="shutdown-circle-btn restart">🔄</div>
+            <span>Reiniciar</span>
+          </div>
+        </div>
+      </div>
+      <div class="shutdown-footer">
+        <button class="retro-btn" id="btn-shutdown-cancel">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CRT Monitor Off Overlay -->
+  <div class="crt-off-overlay" id="crt-off-overlay">
+    <div class="crt-off-center">
+      <div class="crt-power-led"></div>
+      <p class="crt-off-text">El equipo está apagado. Es seguro apagar el equipo.</p>
+      <button class="retro-btn primary" id="btn-turn-on-pc">⚡ Encender Equipo</button>
     </div>
   </div>
 
