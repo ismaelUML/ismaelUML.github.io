@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="CLASSIFIED SURVEILLANCE FEED // DOCUMENT ARCHIVE 09 // HIGH CONTRAST ANALOG HORROR TRANSMISSION">
+  <meta name="description"
+    content="CLASSIFIED SURVEILLANCE FEED // DOCUMENT ARCHIVE 09 // HIGH CONTRAST ANALOG HORROR TRANSMISSION">
   <title>ARCHIVE-09 // WE ARE WATCHING</title>
-  
+
   <!-- Typography: Photocopied Typewriter, Occult Display, Terminal Telemetry -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;900&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Share+Tech+Mono&family=Special+Elite&display=swap" rel="stylesheet">
-  
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;900&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Share+Tech+Mono&family=Special+Elite&display=swap"
+    rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="mode-dark" id="app-body">
 
   <!-- SVG Filters for Procedural Rough Sketchy Marker & Chalk Texture -->
@@ -41,7 +46,7 @@
     <div class="paper-fold-vertical"></div>
   </div>
 
-  <!-- Main Wrapper (Distressed Photocopied Dossier / Transmission Canvas) -->
+  <!-- Main Wrapper (Distressed Photocopied  Dossier / Transmission Canvas) -->
   <div class="dossier-wrapper">
 
     <!-- Top Surveillance Header Telemetry -->
@@ -49,25 +54,17 @@
       <div class="telemetry-block left">
         <span class="vhs-status"><span class="rec-dot">●</span> REC</span>
         <span class="vhs-time" id="vhs-clock">11:47:04 PM</span>
-        <span class="badge-tag">CH-09 // SP</span>
+        <span class="badge-tag">CH-09 // COGNITIVE REPOSITORY</span>
       </div>
 
       <div class="telemetry-block center">
-        <span class="classified-stamp">TOP SECRET // EYES ONLY</span>
-        <span class="transmission-sub">SURVEILLANCE INITIATIVE 1984-Ω</span>
+        <span class="classified-stamp">TOP SECRET // ARCHIVE-09</span>
+        <span class="transmission-sub">CONSCIOUSNESS EXTRACTION INITIATIVE</span>
       </div>
 
       <div class="telemetry-block right">
-        <!-- Interactive Controls -->
-        <button type="button" class="ctrl-btn" id="audio-toggle-btn" title="Toggle audio drone" aria-pressed="false">
-          <span class="ctrl-icon">∿</span> AUDIO: <span id="audio-status-label">OFF</span>
-        </button>
-        <button type="button" class="ctrl-btn" id="invert-mode-btn" title="Toggle negative film inversion">
-          <span class="ctrl-icon">◐</span> <span id="invert-status-label">INVERT</span>
-        </button>
-        <button type="button" class="ctrl-btn" id="scramble-btn" title="Induce signal interference">
-          <span class="ctrl-icon">⚡</span> DISTORT
-        </button>
+        <span class="telemetry-indicator" id="signal-state">SIGNAL: SYNCHRONIZED</span>
+        <span class="telemetry-coords">1420.405 MHz</span>
       </div>
     </header>
 
@@ -93,9 +90,12 @@
           <!-- Background Occult Compass Points & Diamonds -->
           <g class="emblem-diamonds">
             <!-- Radiating hand-drawn diamond stars -->
-            <polygon class="rough-stroke diamond-outer" points="200,10 240,160 390,200 240,240 200,390 160,240 10,200 160,160" />
-            <polygon class="rough-stroke diamond-mid" points="200,45 230,170 355,200 230,230 200,355 170,230 45,200 170,170" />
-            <polygon class="rough-stroke diamond-inner" points="200,90 220,180 310,200 220,220 200,310 180,220 90,200 180,180" />
+            <polygon class="rough-stroke diamond-outer"
+              points="200,10 240,160 390,200 240,240 200,390 160,240 10,200 160,160" />
+            <polygon class="rough-stroke diamond-mid"
+              points="200,45 230,170 355,200 230,230 200,355 170,230 45,200 170,170" />
+            <polygon class="rough-stroke diamond-inner"
+              points="200,90 220,180 310,200 220,220 200,310 180,220 90,200 180,180" />
           </g>
 
           <!-- Radiating Compass Rose Rays / Hash Marks -->
@@ -113,9 +113,12 @@
           <!-- Overlapping Atomic / Occult Orbiting Ovals -->
           <g class="emblem-orbits" id="orbit-group">
             <ellipse class="rough-stroke orbit-ring orbit-1" cx="200" cy="200" rx="145" ry="60" />
-            <ellipse class="rough-stroke orbit-ring orbit-2" cx="200" cy="200" rx="145" ry="60" transform="rotate(45 200 200)" />
-            <ellipse class="rough-stroke orbit-ring orbit-3" cx="200" cy="200" rx="145" ry="60" transform="rotate(90 200 200)" />
-            <ellipse class="rough-stroke orbit-ring orbit-4" cx="200" cy="200" rx="145" ry="60" transform="rotate(135 200 200)" />
+            <ellipse class="rough-stroke orbit-ring orbit-2" cx="200" cy="200" rx="145" ry="60"
+              transform="rotate(45 200 200)" />
+            <ellipse class="rough-stroke orbit-ring orbit-3" cx="200" cy="200" rx="145" ry="60"
+              transform="rotate(90 200 200)" />
+            <ellipse class="rough-stroke orbit-ring orbit-4" cx="200" cy="200" rx="145" ry="60"
+              transform="rotate(135 200 200)" />
           </g>
 
           <!-- Outer Eye Sclera Outline -->
@@ -132,7 +135,8 @@
             <!-- Solid black void pupil -->
             <circle class="pupil-void" id="pupil-circle" cx="200" cy="200" r="26" />
             <!-- Occult Central Star / Void in center of pupil -->
-            <polygon class="pupil-star" id="pupil-star" points="200,188 203,197 212,200 203,203 200,212 197,203 188,200 197,197" />
+            <polygon class="pupil-star" id="pupil-star"
+              points="200,188 203,197 212,200 203,203 200,212 197,203 188,200 197,197" />
             <!-- Highlight glint -->
             <circle class="pupil-glint" cx="193" cy="193" r="3.5" />
           </g>
@@ -148,13 +152,12 @@
           </g>
         </svg>
 
-        <!-- Eye Status Ping Overlay -->
-        <div class="eye-ping-label" id="eye-state-label">TRACKING TARGET</div>
+        <!-- Note: eye-ping-label removed per user request -->
       </div>
 
       <!-- MAIN CENTER TEXT SECTION -->
       <section class="main-text-stage">
-        
+
         <div class="kicker-line">
           <span class="warning-bracket">[</span>
           <span class="kicker-text" id="kicker-msg">TRANSMISSION 04-Ω // RECORDING IN PROGRESS</span>
@@ -167,68 +170,246 @@
           <span class="headline-part line-2">WE ARE LISTENING.</span>
         </h1>
 
-        <div class="focal-subtext">
-          <p class="manifesto-paragraph">
-            You are not observing the transmission. The transmission is observing you.
-            Every cadence is archived. Every glance through the glass is cataloged under
-            <span class="redacted-box" data-secret="FACILITY 09 — THE HOLLOW GROUND" title="Click to unredact">[REDACTED SECTOR]</span>.
-          </p>
-          <p class="secondary-instruction">
-            Do not disconnect the horizontal hold.
-            <span class="redacted-box" data-secret="THEY ARE STANDING IN THE FOG BEHIND YOU" title="Click to unredact">[THE WITNESSES REMAIN]</span>
-            until the broadcast terminates.
-          </p>
-        </div>
-
-        <!-- Interactive Transmission Action Deck -->
-        <div class="action-dock">
-          <button type="button" class="dock-btn primary" id="transmit-btn">
-            <span class="btn-bracket">[</span> CONFIRM SURVEILLANCE <span class="btn-bracket">]</span>
-          </button>
-          <button type="button" class="dock-btn" id="dossier-toggle-btn">
-            <span class="btn-bracket">[</span> EXAMINE DOSSIER FEED <span class="btn-bracket">]</span>
-          </button>
-          <button type="button" class="dock-btn" id="reveal-all-btn">
-            <span class="btn-bracket">[</span> DECLASSIFY ALL <span class="btn-bracket">]</span>
-          </button>
-        </div>
+        <!-- Clickable Manifesto Portal: Leads directly to the Main Index -->
+        <a href="#archive-index" class="manifesto-portal-link" id="manifesto-portal"
+          title="Acceder al Índice de Registros">
+          <div class="focal-subtext">
+            <p class="manifesto-paragraph">
+              You are not observing the transmission. The transmission is observing you.
+              Every cadence is archived. Every glance through the glass is cataloged under.
+            </p>
+            <p class="secondary-instruction">
+              Do not disconnect the horizontal hold. until the broadcast terminates.
+            </p>
+          </div>
+          <div class="portal-cue">
+            <span class="cue-bracket">[</span>
+            <span class="cue-arrow">▼</span> ENTRAR AL ÍNDICE PRINCIPAL // REGISTRO COGNITIVO
+            <span class="cue-bracket">]</span>
+          </div>
+        </a>
 
         <!-- Secret Society Transmission Terminal Feedback -->
         <div class="terminal-log" id="terminal-feed">
-          <div class="log-row"><span class="log-time">[00:00:00]</span> <span class="log-txt">OPTICAL RECEPTOR ENGAGED. SPECTATOR LOCATED.</span></div>
+          <div class="log-row"><span class="log-time">[00:00:00]</span> <span class="log-txt">OPTICAL RECEPTOR ENGAGED.
+              REPOSITORY STANDBY.</span></div>
         </div>
 
       </section>
 
-      <!-- Found-Footage Surveillance Monitor & Silhouetted Figures Deck -->
-      <section class="surveillance-monitor-panel" id="dossier-panel">
-        <div class="monitor-frame">
-          <div class="monitor-header">
-            <span class="feed-tag">CCTV FEED: REAR EXTERIOR // BRUTALIST SECTOR</span>
-            <span class="feed-coords">45.2281° N, 93.1492° W</span>
-            <span class="rec-blink">● LIVE INTERCEPT</span>
-          </div>
+      <!-- SECCIÓN DEL ÍNDICE PRINCIPAL: ESTRATOS COGNITIVOS (6 NIVELES) -->
+      <section class="archive-index-section" id="archive-index">
 
-          <div class="monitor-display">
-            <!-- Authentically generated high-contrast monochrome surveillance image with hooded figures -->
-            <img src="assets/surveillance_figure.jpg" alt="Surveillance camera feed showing three hooded anonymous figures standing in misty brutalist courtyard at night" class="monitor-image" id="cctv-img">
-            <div class="monitor-noise-layer"></div>
-            <div class="monitor-crosshairs">
-              <div class="crosshair-ch"></div>
-              <div class="ch-label top-left">+ 014.2</div>
-              <div class="ch-label top-right">AZM: 284°</div>
-              <div class="ch-label bottom-left">FIG: [3] DETECTED</div>
-              <div class="ch-label bottom-right">ID: ANONYMOUS</div>
-            </div>
+        <div class="index-header-banner">
+          <div class="index-title-group">
+            <span class="index-tag">ARCHIVO COGNITIVO // FRECUENCIAS Y ESTRATOS</span>
+            <h2 class="index-main-title">REGISTRO DE TRANSMISIONES</h2>
           </div>
-
-          <div class="monitor-caption">
-            <p><strong>RECOVERY REPORT:</strong> Found 35mm magnetic tape reel discovered buried near substation 04. Three anonymous hooded entities observed standing stationary in fog for 4 hours, 18 minutes. No vocalization recorded. Ground temperature -4°C.</p>
-          </div>
+          <div class="index-badge">EXPEDIENTES ACTIVOS: 06</div>
         </div>
+
+        <div class="levels-grid">
+
+          <!-- NIVEL I: LIMEN -->
+          <article class="level-card level-limen" data-level="I">
+            <div class="level-card-header">
+              <div class="level-id-group">
+                <span class="level-numeral">I</span>
+                <span class="level-latin">LIMEN</span>
+              </div>
+              <span class="level-trans">umbral</span>
+            </div>
+            <div class="level-atmosphere">
+              <span class="atmo-indicator">●</span> Estado: Grano suave, texto limpio. Ensayos de IA, arquitecturas,
+              ideas en reposo.
+            </div>
+            <ul class="posts-list">
+              <li class="post-item">
+                <a href="posts/01-limen-arquitectura-ia.html" class="post-link">
+                  <span class="post-code">REC-01</span>
+                  <span class="post-title">Arquitectura de Agentes y Memoria Reflexiva en Modelos de Lenguaje</span>
+                  <span class="post-date">12.OCT</span>
+                </a>
+              </li>
+              <li class="post-item">
+                <a href="posts/01-limen-arquitectura-ia.html" class="post-link">
+                  <span class="post-code">REC-02</span>
+                  <span class="post-title">Sobre el Software como Prótesis Intelectual y no como Reemplazo</span>
+                  <span class="post-date">04.OCT</span>
+                </a>
+              </li>
+            </ul>
+          </article>
+
+          <!-- NIVEL II: UMBRA -->
+          <article class="level-card level-umbra" data-level="II">
+            <div class="level-card-header">
+              <div class="level-id-group">
+                <span class="level-numeral">II</span>
+                <span class="level-latin">UMBRA</span>
+              </div>
+              <span class="level-trans">sombra</span>
+            </div>
+            <div class="level-atmosphere">
+              <span class="atmo-indicator">●</span> Estado: Tracking de VHS ocasional, texto tachado en los márgenes.
+            </div>
+            <ul class="posts-list">
+              <li class="post-item">
+                <a href="#umbra-post-1" class="post-link">
+                  <span class="post-code">REC-03</span>
+                  <span class="post-title">El Dilema del Compilador a las 4 AM y la Deuda Técnica Silenciosa</span>
+                  <span class="post-date">28.SEP</span>
+                </a>
+              </li>
+              <li class="post-item">
+                <a href="#umbra-post-2" class="post-link">
+                  <span class="post-code">REC-04</span>
+                  <span class="post-title">Por qué Dejé de Creer en los Diagramas de Arquitectura Perfectos</span>
+                  <span class="post-date">19.SEP</span>
+                </a>
+              </li>
+            </ul>
+          </article>
+
+          <!-- NIVEL III: VELUM -->
+          <article class="level-card level-velum" data-level="III">
+            <div class="level-card-header">
+              <div class="level-id-group">
+                <span class="level-numeral">III</span>
+                <span class="level-latin">VELUM</span>
+              </div>
+              <span class="level-trans">velo</span>
+            </div>
+            <div class="level-atmosphere">
+              <span class="atmo-indicator">●</span> Estado: Scanlines de fósforo verde, latencia ocular y censuras
+              fragmentadas.
+            </div>
+            <ul class="posts-list">
+              <li class="post-item">
+                <a href="#velum-post-1" class="post-link">
+                  <span class="post-code">REC-05</span>
+                  <span class="post-title">La Erosión de la Intimidad: Cuando la Telemetría Somos Nosotros</span>
+                  <span class="post-date">09.SEP</span>
+                </a>
+              </li>
+              <li class="post-item">
+                <a href="#velum-post-2" class="post-link">
+                  <span class="post-code">REC-06</span>
+                  <span class="post-title"><span class="post-redact">[REDACTADO]</span> Las Ideas que Borré Antes de
+                    Publicar</span>
+                  <span class="post-date">01.SEP</span>
+                </a>
+              </li>
+            </ul>
+          </article>
+
+          <!-- NIVEL IV: FRACTURA -->
+          <article class="level-card level-fractura" data-level="IV">
+            <div class="level-card-header">
+              <div class="level-id-group">
+                <span class="level-numeral">IV</span>
+                <span class="level-latin">FRACTURA</span>
+              </div>
+              <span class="level-trans">fractura</span>
+            </div>
+            <div class="level-atmosphere">
+              <span class="atmo-indicator">●</span> Estado: Corrupción textual intermitente, portadora de frecuencia
+              desafinada.
+            </div>
+            <ul class="posts-list">
+              <li class="post-item">
+                <a href="#fractura-post-1" class="post-link">
+                  <span class="post-code">REC-07</span>
+                  <span class="post-title">Alienación Algorítmica: Pensar con Palabras que no son Mías</span>
+                  <span class="post-date">21.AGO</span>
+                </a>
+              </li>
+              <li class="post-item">
+                <a href="#fractura-post-2" class="post-link">
+                  <span class="post-code">REC-08</span>
+                  <span class="post-title">El Desgaste Físico del Pensamiento Hiper-Conectado</span>
+                  <span class="post-date">11.AGO</span>
+                </a>
+              </li>
+            </ul>
+          </article>
+
+          <!-- NIVEL V: ABYSSUS -->
+          <article class="level-card level-abyssus" data-level="V">
+            <div class="level-card-header">
+              <div class="level-id-group">
+                <span class="level-numeral">V</span>
+                <span class="level-latin">ABYSSUS</span>
+              </div>
+              <span class="level-trans">abismo</span>
+            </div>
+            <div class="level-atmosphere">
+              <span class="atmo-indicator">●</span> Estado: Jitter continuo, bloques de censura masivos, fijación de
+              mirada permanente.
+            </div>
+            <ul class="posts-list">
+              <li class="post-item">
+                <a href="#abyssus-post-1" class="post-link">
+                  <span class="post-code">REC-09</span>
+                  <span class="post-title">Lo que Ocurre en la Oscuridad cuando se Cae el Servidor</span>
+                  <span class="post-date">03.JUL</span>
+                </a>
+              </li>
+              <li class="post-item">
+                <a href="#abyssus-post-2" class="post-link">
+                  <span class="post-code">REC-10</span>
+                  <span class="post-title">Las Decisiones que Nunca van a Tener Rollback</span>
+                  <span class="post-date">15.JUN</span>
+                </a>
+              </li>
+            </ul>
+          </article>
+
+          <!-- NIVEL VI: NIHIL -->
+          <article class="level-card level-nihil" data-level="VI">
+            <div class="level-card-header">
+              <div class="level-id-group">
+                <span class="level-numeral">VI</span>
+                <span class="level-latin">NIHIL</span>
+              </div>
+              <span class="level-trans">nada</span>
+            </div>
+            <div class="level-atmosphere">
+              <span class="atmo-indicator">●</span> Estado: Casi ilegible, inversión fotocopiada forzada, flujo
+              subconsciente sin filtro.
+            </div>
+            <ul class="posts-list">
+              <li class="post-item">
+                <a href="#nihil-post-1" class="post-link">
+                  <span class="post-code">REC-11</span>
+                  <span class="post-title">[ERROR DE BUFFER: VINCULACIÓN CERO // TRANSMISIÓN CRUDA]</span>
+                  <span class="post-date">--.--</span>
+                </a>
+              </li>
+              <li class="post-item">
+                <a href="#nihil-post-2" class="post-link">
+                  <span class="post-code">REC-12</span>
+                  <span class="post-title">Sin Título // Manuscrito antes de la Desconexión Total</span>
+                  <span class="post-date">--.--</span>
+                </a>
+              </li>
+            </ul>
+          </article>
+
+        </div>
+
       </section>
 
     </main>
+
+    <!-- CRT TV Power-Off Crash Screen (Triggered when staring too long into the eye) -->
+    <div class="crt-off-overlay" id="crt-off-overlay" aria-hidden="true">
+      <div class="crt-flash-center"></div>
+      <div class="crt-reboot-cue" id="crt-reboot-cue">
+        [ TUBO CATÓDICO APAGADO POR SOBRECARGA OCULAR ]<br>
+        <span>HAZ CLICK EN CUALQUIER LUGAR PARA RECONECTAR LA SEÑAL</span>
+      </div>
+    </div>
 
     <!-- Bottom Footer Telemetry & Found-Footage Warning Banner -->
     <footer class="surveillance-footer">
@@ -257,4 +438,5 @@
 
   <script src="script.js"></script>
 </body>
+
 </html>

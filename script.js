@@ -1,89 +1,39 @@
 /**
- * ANALOG HORROR SURVEILLANCE & OCCULT CORE
- * Drives pupil tracking trigonometry, procedural tape synthesis, and VHS glitch telemetry.
+ * ARCHIVE-09 // COGNITIVE REPOSITORY & ARG INTERACTION ENGINE
+ * Strict analog horror mechanics: pupil tremor on proximity, ocular rage overload,
+ * CRT cathode collapse on dwell, auto-distort interval, and cognitive ledger routing.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
   // --- DOM Element References ---
   const body = document.getElementById('app-body');
   const occultEmblem = document.getElementById('occult-emblem');
+  const occultSvg = document.querySelector('.occult-svg');
   const pupilAssembly = document.getElementById('pupil-target');
-  const eyeLabel = document.getElementById('eye-state-label');
+  const pupilCircle = document.getElementById('pupil-circle');
   const vhsClock = document.getElementById('vhs-clock');
-  const audioBtn = document.getElementById('audio-toggle-btn');
-  const audioLabel = document.getElementById('audio-status-label');
-  const invertBtn = document.getElementById('invert-mode-btn');
-  const invertLabel = document.getElementById('invert-status-label');
-  const scrambleBtn = document.getElementById('scramble-btn');
-  const transmitBtn = document.getElementById('transmit-btn');
-  const dossierBtn = document.getElementById('dossier-toggle-btn');
-  const dossierPanel = document.getElementById('dossier-panel');
-  const revealAllBtn = document.getElementById('reveal-all-btn');
   const terminalFeed = document.getElementById('terminal-feed');
   const mainHeadline = document.getElementById('main-headline');
   const vhsGlitchBar = document.getElementById('vhs-glitch-bar');
-  const visualizerBars = document.querySelectorAll('.v-bar');
+  const crtOverlay = document.getElementById('crt-off-overlay');
+  const crtCue = document.getElementById('crt-reboot-cue');
+  const manifestoPortal = document.getElementById('manifesto-portal');
 
-  // --- 1. Live VHS Clock with Milliseconds ---
+  // --- 1. Real-time VHS Clock (with Milliseconds / Frames) ---
   function updateVHSClock() {
     const now = new Date();
     const hours = String(now.getHours()).padStart(2, '0');
     const minutes = String(now.getMinutes()).padStart(2, '0');
     const seconds = String(now.getSeconds()).padStart(2, '0');
     const frames = String(Math.floor(now.getMilliseconds() / 40)).padStart(2, '0');
-    vhsClock.textContent = `${hours}:${minutes}:${seconds}:${frames} PM`;
+    if (vhsClock) {
+      vhsClock.textContent = `${hours}:${minutes}:${seconds}:${frames} PM`;
+    }
   }
   setInterval(updateVHSClock, 40);
   updateVHSClock();
 
-  // --- 2. Interactive Pupil Tracking (Mouse Trigonometry) ---
-  // Calculates angle & distance so the stylized eye actually stares down the visitor.
-  let isTargeting = true;
-  let pupilOffset = { x: 0, y: 0 };
-  const MAX_RADIUS = 15; // Don't let the pupil drift outside the drawn iris
-
-  function handleMouseMove(e) {
-    if (!occultEmblem || !pupilAssembly || !isTargeting) return;
-
-    const rect = occultEmblem.getBoundingClientRect();
-    const eyeCenterX = rect.left + rect.width / 2;
-    const eyeCenterY = rect.top + rect.height / 2;
-
-    const deltaX = e.clientX - eyeCenterX;
-    const deltaY = e.clientY - eyeCenterY;
-    const distance = Math.hypot(deltaX, deltaY);
-    const angle = Math.atan2(deltaY, deltaX);
-
-    // Ease clamp so the pupil feels elastic rather than locked to a hard boundary
-    const clampedDist = Math.min(distance * 0.05, MAX_RADIUS);
-    pupilOffset.x = Math.cos(angle) * clampedDist;
-    pupilOffset.y = Math.sin(angle) * clampedDist;
-
-    pupilAssembly.style.transform = `translate(${pupilOffset.x.toFixed(1)}px, ${pupilOffset.y.toFixed(1)}px)`;
-
-    // Random telemetry update when hovering close
-    if (distance < 200) {
-      eyeLabel.textContent = `TARGET LOCKED // AZM ${(angle * (180 / Math.PI)).toFixed(0)}°`;
-    } else {
-      eyeLabel.textContent = 'MONITORING PERIMETER';
-    }
-  }
-
-  window.addEventListener('mousemove', handleMouseMove, { passive: true });
-
-  // Spontaneous eye twitch or dilation every few seconds to feel unnerving
-  setInterval(() => {
-    if (Math.random() > 0.65) {
-      const twitchX = pupilOffset.x + (Math.random() - 0.5) * 4;
-      const twitchY = pupilOffset.y + (Math.random() - 0.5) * 4;
-      pupilAssembly.style.transform = `translate(${twitchX.toFixed(1)}px, ${twitchY.toFixed(1)}px)`;
-      setTimeout(() => {
-        pupilAssembly.style.transform = `translate(${pupilOffset.x.toFixed(1)}px, ${pupilOffset.y.toFixed(1)}px)`;
-      }, 90);
-    }
-  }, 3200);
-
-  // --- 3. Terminal Log Dispatcher ---
+  // --- 2. Terminal Log Dispatcher ---
   function appendLog(message) {
     if (!terminalFeed) return;
     const now = new Date();
@@ -96,247 +46,231 @@ document.addEventListener('DOMContentLoaded', () => {
     terminalFeed.appendChild(row);
     terminalFeed.scrollTop = terminalFeed.scrollHeight;
 
-    // Prune old logs to avoid unbounded DOM growth
-    while (terminalFeed.children.length > 8) {
+    while (terminalFeed.children.length > 7) {
       terminalFeed.removeChild(terminalFeed.firstChild);
     }
   }
 
-  // --- 4. Web Audio API Procedural Tape / Occult Drone ---
-  // Browser auto-play policies will kill audio if we start unprompted, so user initiates it here.
-  let audioCtx = null;
-  let isAudioActive = false;
-  let droneOsc = null;
-  let droneGain = null;
-  let noiseNode = null;
-  let noiseGain = null;
-  let lfoOsc = null;
+  // --- 3. Interactive Pupil Tracking & Proximity Tremor ---
+  let cursorX = window.innerWidth / 2;
+  let cursorY = window.innerHeight / 2;
+  let currentPupilX = 0;
+  let currentPupilY = 0;
+  const MAX_RADIUS = 14;
 
-  function initAudio() {
-    try {
-      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-      audioCtx = new AudioContextClass();
+  // Dwell and Rage accumulator
+  let eyeAnger = 0; // 0 to 1
+  let isHoveringInsideEye = false;
+  let isCrtShutDown = false;
 
-      // Sub-bass 55Hz foundation drone
-      droneOsc = audioCtx.createOscillator();
-      droneOsc.type = 'sawtooth';
-      droneOsc.frequency.setValueAtTime(54.2, audioCtx.currentTime); // Low resonant hum
+  window.addEventListener('mousemove', (e) => {
+    cursorX = e.clientX;
+    cursorY = e.clientY;
+  }, { passive: true });
 
-      // Low-pass filter to make it sound like a subterranean generator through concrete
-      const filter = audioCtx.createBiquadFilter();
-      filter.type = 'lowpass';
-      filter.frequency.setValueAtTime(140, audioCtx.currentTime);
-
-      // Low frequency oscillator to give the drone a breathing wobble
-      lfoOsc = audioCtx.createOscillator();
-      lfoOsc.frequency.setValueAtTime(0.2, audioCtx.currentTime);
-      const lfoGain = audioCtx.createGain();
-      lfoGain.gain.setValueAtTime(4, audioCtx.currentTime);
-      lfoOsc.connect(lfoGain);
-      lfoGain.connect(droneOsc.frequency);
-      lfoOsc.start();
-
-      droneGain = audioCtx.createGain();
-      droneGain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-
-      droneOsc.connect(filter);
-      filter.connect(droneGain);
-      droneGain.connect(audioCtx.destination);
-      droneOsc.start();
-
-      // Procedural Tape Hiss & Static
-      const bufferSize = audioCtx.sampleRate * 2;
-      const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-      const output = noiseBuffer.getChannelData(0);
-      let lastOut = 0.0;
-      for (let i = 0; i < bufferSize; i++) {
-        // Pink noise filter curve
-        const white = Math.random() * 2 - 1;
-        output[i] = (lastOut + (0.02 * white)) / 1.02;
-        lastOut = output[i];
-        output[i] *= 3.5;
-      }
-
-      noiseNode = audioCtx.createBufferSource();
-      noiseNode.buffer = noiseBuffer;
-      noiseNode.loop = true;
-
-      const noiseFilter = audioCtx.createBiquadFilter();
-      noiseFilter.type = 'bandpass';
-      noiseFilter.frequency.setValueAtTime(1200, audioCtx.currentTime);
-      noiseFilter.Q.setValueAtTime(0.6, audioCtx.currentTime);
-
-      noiseGain = audioCtx.createGain();
-      noiseGain.gain.setValueAtTime(0.035, audioCtx.currentTime);
-
-      noiseNode.connect(noiseFilter);
-      noiseFilter.connect(noiseGain);
-      noiseGain.connect(audioCtx.destination);
-      noiseNode.start();
-
-      isAudioActive = true;
-      audioLabel.textContent = 'ACTIVE [54Hz]';
-      audioBtn.setAttribute('aria-pressed', 'true');
-      appendLog('ANALOG CARRIER SIGNAL ENGAGED (54.20 MHz).');
-      startVisualizerJitter();
-    } catch (err) {
-      console.warn('Audio initiation prevented or unsupported:', err);
-    }
-  }
-
-  function toggleAudio() {
-    if (!audioCtx) {
-      initAudio();
+  // Main high-frequency render loop for smooth tracking & vibration
+  function ocularLoop() {
+    if (!occultEmblem || !pupilAssembly || isCrtShutDown) {
+      requestAnimationFrame(ocularLoop);
       return;
     }
 
-    if (audioCtx.state === 'suspended') {
-      audioCtx.resume();
-      isAudioActive = true;
-      audioLabel.textContent = 'ACTIVE [54Hz]';
-      audioBtn.setAttribute('aria-pressed', 'true');
-      appendLog('AUDIO INTERCEPT RESUMED.');
-    } else if (audioCtx.state === 'running') {
-      audioCtx.suspend();
-      isAudioActive = false;
-      audioLabel.textContent = 'OFF';
-      audioBtn.setAttribute('aria-pressed', 'false');
-      appendLog('AUDIO CARRIER DAMPENED.');
+    const rect = occultEmblem.getBoundingClientRect();
+    const eyeCenterX = rect.left + rect.width / 2;
+    const eyeCenterY = rect.top + rect.height / 2;
+
+    const deltaX = cursorX - eyeCenterX;
+    const deltaY = cursorY - eyeCenterY;
+    const distance = Math.hypot(deltaX, deltaY);
+    const angle = Math.atan2(deltaY, deltaX);
+
+    // Target clamped position
+    const clampedDist = Math.min(distance * 0.05, MAX_RADIUS);
+    const targetX = Math.cos(angle) * clampedDist;
+    const targetY = Math.sin(angle) * clampedDist;
+
+    // Proximity Tremor: Closer cursor = stronger tremor
+    // When distance < 260px, tremor factor scales up
+    const proximity = Math.max(0, (260 - distance) / 260);
+    const trembleScale = Math.pow(proximity, 1.8) * 8.5; // Exponential agitation
+    const jitterX = (Math.random() - 0.5) * trembleScale;
+    const jitterY = (Math.random() - 0.5) * trembleScale;
+
+    // Smooth lerp to target + tremor
+    currentPupilX += (targetX - currentPupilX) * 0.22;
+    currentPupilY += (targetY - currentPupilY) * 0.22;
+
+    const finalX = currentPupilX + jitterX;
+    const finalY = currentPupilY + jitterY;
+
+    pupilAssembly.style.transform = `translate(${finalX.toFixed(1)}px, ${finalY.toFixed(1)}px)`;
+
+    // Check if cursor is directly over the eye boundary (approx 65px radius)
+    if (distance < 65) {
+      isHoveringInsideEye = true;
+      eyeAnger = Math.min(1.0, eyeAnger + 0.0055); // Reaches 1.0 in ~3-4 seconds of continuous hover
+    } else {
+      isHoveringInsideEye = false;
+      eyeAnger = Math.max(0.0, eyeAnger - 0.007); // Cools down when leaving
+    }
+
+    // Apply anger stages
+    updateEyeAngerVisuals();
+
+    requestAnimationFrame(ocularLoop);
+  }
+  requestAnimationFrame(ocularLoop);
+
+  function updateEyeAngerVisuals() {
+    if (!occultSvg) return;
+
+    if (eyeAnger >= 1.0) {
+      // Overload reached -> crash the screen!
+      triggerCRTShutdown();
+      return;
+    }
+
+    if (eyeAnger > 0.65) {
+      occultSvg.classList.add('rage-3');
+      occultSvg.classList.remove('rage-2', 'rage-1');
+      body.classList.add('screen-shake-violent');
+      body.classList.remove('screen-shake-mild');
+    } else if (eyeAnger > 0.35) {
+      occultSvg.classList.add('rage-2');
+      occultSvg.classList.remove('rage-3', 'rage-1');
+      body.classList.add('screen-shake-mild');
+      body.classList.remove('screen-shake-violent');
+    } else if (eyeAnger > 0.12) {
+      occultSvg.classList.add('rage-1');
+      occultSvg.classList.remove('rage-3', 'rage-2');
+      body.classList.remove('screen-shake-violent', 'screen-shake-mild');
+    } else {
+      occultSvg.classList.remove('rage-1', 'rage-2', 'rage-3');
+      body.classList.remove('screen-shake-violent', 'screen-shake-mild');
     }
   }
 
-  audioBtn.addEventListener('click', toggleAudio);
+  // --- 4. Old CRT TV Power-Off Crash Sequence ---
+  function triggerCRTShutdown() {
+    if (isCrtShutDown) return;
+    isCrtShutDown = true;
+    eyeAnger = 0;
 
-  // Equalizer visualizer animation
-  function startVisualizerJitter() {
-    setInterval(() => {
-      visualizerBars.forEach(bar => {
-        if (isAudioActive) {
-          const randHeight = Math.floor(Math.random() * 14) + 2;
-          bar.style.height = `${randHeight}px`;
-        } else {
-          bar.style.height = '3px';
-        }
-      });
-    }, 110);
+    // Reset eye rage visuals
+    if (occultSvg) occultSvg.classList.remove('rage-1', 'rage-2', 'rage-3');
+    body.classList.remove('screen-shake-violent', 'screen-shake-mild');
+
+    appendLog('ALERTA: SOBRECARGA OCULAR CRÍTICA. TUBO CATÓDICO COLAPSADO.');
+
+    if (crtOverlay) {
+      crtOverlay.classList.remove('dead');
+      crtOverlay.classList.add('active', 'animating');
+
+      // After collapse animation finishes, leave in complete blackout
+      setTimeout(() => {
+        crtOverlay.classList.remove('animating');
+        crtOverlay.classList.add('dead');
+      }, 750);
+    }
   }
-  startVisualizerJitter();
 
-  // --- 5. Photocopied Invert Mode (Stark Xerox Paper Mode) ---
-  invertBtn.addEventListener('click', () => {
-    const isInverted = body.classList.toggle('mode-invert');
-    invertLabel.textContent = isInverted ? 'XEROX' : 'VOID';
-    appendLog(isInverted ? 'TONALITY INVERTED: PHOTOCOPIED REVERSAL.' : 'TONALITY RESTORED: OBSIDIAN VOID.');
-  });
+  // Reboot CRT on click anywhere while shut down
+  if (crtOverlay) {
+    crtOverlay.addEventListener('click', () => {
+      if (!isCrtShutDown) return;
+      
+      // Reboot bloom
+      crtOverlay.classList.remove('dead');
+      crtOverlay.style.background = '#ffffff';
+      setTimeout(() => {
+        crtOverlay.style.background = '';
+        crtOverlay.classList.remove('active');
+        isCrtShutDown = false;
+        appendLog('REINICIO DE FILAMENTO EFECTUADO. SEÑAL RESTABLECIDA.');
+      }, 150);
+    });
+  }
 
-  // --- 6. Signal Distortion / Scramble Effect ---
-  const originalHeadline = 'WE ARE WATCHING.\nWE ARE LISTENING.';
+  // --- 5. Automatic Signal Distort with Prolonged Randomized Interval ---
   const cipherChars = '01#%&Ωλ☿⨀█▓░▲▼×+§';
+  const orig1 = 'WE ARE WATCHING.';
+  const orig2 = 'WE ARE LISTENING.';
 
   function triggerSignalDistort() {
-    // Fire a burst on the VHS glitch bar
-    vhsGlitchBar.style.height = '48px';
-    vhsGlitchBar.style.opacity = '1';
-    setTimeout(() => {
-      vhsGlitchBar.style.height = '';
-      vhsGlitchBar.style.opacity = '';
-    }, 300);
+    if (isCrtShutDown) return;
 
-    // Text scramble
-    let iterations = 0;
-    const parts = mainHeadline.querySelectorAll('.headline-part');
-    const orig1 = 'WE ARE WATCHING.';
-    const orig2 = 'WE ARE LISTENING.';
+    // Flash VHS glitch tracking bar
+    if (vhsGlitchBar) {
+      vhsGlitchBar.style.height = '42px';
+      vhsGlitchBar.style.opacity = '1';
+      setTimeout(() => {
+        vhsGlitchBar.style.height = '';
+        vhsGlitchBar.style.opacity = '';
+      }, 350);
+    }
 
-    const scrambleInterval = setInterval(() => {
-      if (parts[0]) {
-        parts[0].textContent = orig1
-          .split('')
-          .map((ch, idx) => (idx < iterations ? ch : cipherChars[Math.floor(Math.random() * cipherChars.length)]))
-          .join('');
-      }
-      if (parts[1]) {
-        parts[1].textContent = orig2
-          .split('')
-          .map((ch, idx) => (idx < iterations ? ch : cipherChars[Math.floor(Math.random() * cipherChars.length)]))
-          .join('');
-      }
+    // Scramble headline characters briefly
+    if (mainHeadline) {
+      const parts = mainHeadline.querySelectorAll('.headline-part');
+      let iterations = 0;
 
-      iterations += 1;
-      if (iterations >= orig1.length + 3) {
-        clearInterval(scrambleInterval);
-        if (parts[0]) parts[0].textContent = orig1;
-        if (parts[1]) parts[1].textContent = orig2;
-      }
-    }, 45);
+      const interval = setInterval(() => {
+        if (parts[0]) {
+          parts[0].textContent = orig1
+            .split('')
+            .map((ch, idx) => (idx < iterations ? ch : cipherChars[Math.floor(Math.random() * cipherChars.length)]))
+            .join('');
+        }
+        if (parts[1]) {
+          parts[1].textContent = orig2
+            .split('')
+            .map((ch, idx) => (idx < iterations ? ch : cipherChars[Math.floor(Math.random() * cipherChars.length)]))
+            .join('');
+        }
 
-    appendLog('SIGNAL INTERFERENCE DETECTED. HORIZONTAL HOLD DESTABILIZED.');
+        iterations += 1;
+        if (iterations >= orig1.length + 3) {
+          clearInterval(interval);
+          if (parts[0]) parts[0].textContent = orig1;
+          if (parts[1]) parts[1].textContent = orig2;
+        }
+      }, 40);
+    }
+
+    appendLog('INTERFERENCIA AUTOMÁTICA EN BANDA BASE (PROLONGADA).');
+    scheduleNextAutoDistort();
   }
 
-  scrambleBtn.addEventListener('click', triggerSignalDistort);
+  function scheduleNextAutoDistort() {
+    // Random interval between 22 and 45 seconds (prolonged, unpredictable)
+    const nextDelay = Math.floor(Math.random() * 23000) + 22000;
+    setTimeout(triggerSignalDistort, nextDelay);
+  }
+  scheduleNextAutoDistort();
 
-  // --- 7. Redacted Tape Blocks (Declassification on Click) ---
-  const redactedBlocks = document.querySelectorAll('.redacted-box');
-
-  redactedBlocks.forEach(box => {
-    box.addEventListener('click', () => {
-      const secret = box.getAttribute('data-secret');
-      if (!box.classList.contains('revealed')) {
-        box.classList.add('revealed');
-        box.textContent = secret;
-        appendLog(`CLASSIFIED STRING DISCLOSED: "${secret}"`);
-      } else {
-        box.classList.remove('revealed');
-        box.textContent = '[REDACTED]';
-        appendLog('STRING RESTORED TO OBFUSCATION.');
+  // --- 6. Smooth Scroll on Manifesto Portal Click ---
+  if (manifestoPortal) {
+    manifestoPortal.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.getElementById('archive-index');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        appendLog('ACCESO AL ÍNDICE COGNITIVO CONCEDIDO.');
       }
     });
-  });
+  }
 
-  revealAllBtn.addEventListener('click', () => {
-    redactedBlocks.forEach(box => {
-      const secret = box.getAttribute('data-secret');
-      box.classList.add('revealed');
-      box.textContent = secret;
-    });
-    appendLog('FULL SYSTEM DECLASSIFICATION FORCED BY OPERATOR.');
-  });
-
-  // --- 8. Confirm Surveillance Interaction ---
-  transmitBtn.addEventListener('click', () => {
-    triggerSignalDistort();
-    appendLog('SUBJECT CONFIRMATION PACKET BROADCASTED. DO NOT LEAVE.');
-    
-    // Quick flash of pupil dilation
-    const pupilCircle = document.getElementById('pupil-circle');
-    if (pupilCircle) {
-      pupilCircle.setAttribute('r', '32');
-      setTimeout(() => pupilCircle.setAttribute('r', '26'), 400);
-    }
-  });
-
-  // --- 9. Toggle Surveillance Dossier Feed (Hooded Figures Panel) ---
-  dossierBtn.addEventListener('click', () => {
-    const isActive = dossierPanel.classList.toggle('active');
-    dossierBtn.querySelector('.btn-bracket').nextSibling.nodeValue = isActive ? ' CONCEAL DOSSIER FEED ' : ' EXAMINE DOSSIER FEED ';
-    appendLog(isActive ? 'SURVEILLANCE CAM FEED (REAR EXTERIOR) OPENED.' : 'MONITOR SHUT DOWN.');
-
-    if (isActive) {
-      dossierPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  });
-
-  // Background random ambient check-in log
+  // Ambient terminal ticker
+  const ambientNotes = [
+    'ESTRATO I (LIMEN): FRECUENCIA ESTABLE.',
+    'PUPILA EN EQUILIBRIO TENSIONAL.',
+    'ESTRATO III (VELUM): SCANLINES EN FASE.',
+    'SIN DESVÍO DE HORIZONTALIDAD.'
+  ];
   setInterval(() => {
-    const ambientLogs = [
-      'ACOUSTIC SENSORS REGISTER SHADOW MOVEMENT.',
-      'MAGNETIC TAPE FLUX STEADY.',
-      'NO ESCAPE CORRIDOR FOUND IN THIS SECTOR.',
-      'THE WITNESSES HAVE NOT CHANGED POSITION.'
-    ];
-    if (Math.random() > 0.4) {
-      const chosen = ambientLogs[Math.floor(Math.random() * ambientLogs.length)];
-      appendLog(chosen);
+    if (!isCrtShutDown && Math.random() > 0.45) {
+      const msg = ambientNotes[Math.floor(Math.random() * ambientNotes.length)];
+      appendLog(msg);
     }
-  }, 9000);
+  }, 14000);
 });

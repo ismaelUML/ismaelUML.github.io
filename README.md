@@ -1,105 +1,72 @@
-# ARCHIVE-09 // PROTOCOLO SIGHTLESS
+# ARCHIVE-09 // DIARIO COGNITIVO & PROTOCOLO SIGHTLESS
 
 > *"Usted no está observando la transmisión. La transmisión ya registró su ubicación."*
 
-Este repositorio es la base de un archivo interactivo de terror analógico y conspiración secreta, pensado para expandirse de forma modular exactamente como la Fundación SCP o la wiki de Los Backrooms, pero con estética de volante fotocopiado en mimeógrafo, cinta magnética VHS degradada y vigilancia paranoica de baja frecuencia.
+Este espacio no es un blog común y corriente ni una landing corporativa más.. es un repositorio personal en clave **ARG (Alternate Reality Game)** con estética de terror analógico, documentos clasificados de la Fundación SCP y niveles liminales de Los Backrooms.
 
-Acá no hay nada de colores pastel ni interfaces amables.. el diseño está clavado en un monocromo de alto contraste puro (negros de brea, grises carbón y blancos tiza), con ruido xerox, geometrías de logia oculta y figuras encapuchadas que no se mueven de la niebla.
+Acá vuelco pensamientos crudos, ensayos sobre Inteligencia Artificial, arquitectura de software, dilemas de programación y reflexiones personales que no encajan en redes sociales pulcras. 
 
----
-
-## 👁️ De qué carajo trata el universo (El Lore)
-
-El proyecto gira en torno a **ARCHIVE-09** (también conocido como *Iniciativa Sightless* o *Sector 04-Ω*): un organismo clandestino sin fecha de creación clara que intercepta señales de transmisiones de origen no humano ni terrestre, pero registradas en cintas magnéticas de 35mm y casetes VHS fechados entre 1978 y 2008.
-
-Los principios fundacionales de este universo son estos:
-
-1. **La mirada es bidireccional:** Todo dispositivo que reproduce la señal (pantallas CRT, monitores de circuito cerrado, volantes impresos) actúa como una mirilla desde el otro lado. Si mirás la geometría central, la pupila te sigue la pista.
-2. **Los Testigos (Entidad-03):** Figuras antropomorfas encapuchadas o con cascos sellados que aparecen inmóviles en terrenos baldíos, patios de hormigón brutalista y subestaciones eléctricas cuando la temperatura baja de cero. No hablan, no atacan.. solo hacen de anclaje para la señal.
-3. **Cintas sin expurgar:** Las cintas recuperadas bajo tierra no se pueden borrar ni quemar. Cada intento de desmagnetizarlas provoca fallas de tracking y quemaduras en los operadores.
-4. **La Frecuencia 1420.405 MHz:** Una portadora sub-grave constante (alrededor de los 54 Hz) que no transporta audio convencional sino inducción estática y zumbido analógico.
+Todo corre en **silencio absoluto**, en un monocromo riguroso de alto contraste, con grano de película pesada, estática de tubo catódico (CRT) y la constante sensación de que cada palabra registrada está siendo monitoreada por una presencia inmóvil.
 
 ---
 
-## 📂 Cómo está armado el proyecto hoy
+## 🗂️ Los 6 Estratos Cognitivos (Niveles)
 
-A diferencia de proyectos pesados llenos de dependencias al pedo, esto está construido con HTML crudo, CSS vanilla y JavaScript nativo para que corra al instante en cualquier navegador sin instalar nada raro:
+Los textos no se ordenan por categorías aburridas. Se clasifican por **profundidad de pensamiento** a través de seis estratos en latín, cada uno con su atmósfera visual y color característico:
 
-- `index.html`: Estructura semántica del expediente. Contiene los filtros SVG procedurales (`#chalk-sketch` y `#xerox-distort`) que le dan a las líneas vectoriales esa textura áspera de marcador y tiza sobre fotocopia gastada.
-- `style.css`: Motor visual de alto contraste. Maneja el grano animado, las scanlines de monitor de tubo catódico, las marcas de doblado de papel en cruz, las barras de tracking de VHS y el modo invertido (`mode-invert`) que pasa la web a volante de papel blanco con tinta negra corrida.
-- `script.js`: Toda la interactividad viva:
-  - **Trigonometría ocular:** La pupila del ojo ocultista calcula el ángulo y la distancia de tu cursor en pantalla para clavarte la mirada adonde vayas.
-  - **Sintetizador de cinta (Web Audio API):** Genera oscilador sub-grave a 54.2 Hz con modulación LFO, ruido rosa pasado por filtro pasabanda para simular el soplido de la cinta magnética y medidor de señal activo. Cero archivos MP3 externos.
-  - **Desclasificación de censura:** Bloques de texto tachados que se revelan al hacerles click.
-  - **Reloj VHS en vivo:** Contador con código de tiempo y fotogramas en milisegundos.
-- `assets/surveillance_figure.jpg`: Fotograma de vigilancia de 35mm recuperado con los tres testigos encapuchados en niebla.
+| Nivel | Término | Significado | Color Distintivo | Comportamiento y Atmósfera |
+| :---: | :--- | :--- | :--- | :--- |
+| **I** | **LIMEN** | *Umbral* | **Blanco hueso / Gris tiza** (`#ede9df`) | Estado estable. Grano suave, tipografía limpia. Ensayos sobre IA, proyectos técnicos, modelos cognitivos e ideas en reposo. |
+| **II** | **UMBRA** | *Sombra* | **Azul acero** (`#688fae`) | Tracking ocasional de cinta VHS, fragmentos tachados en los márgenes. Dudas técnicas, dilemas a las 4 AM. |
+| **III** | **VELUM** | *Velo* | **Verde fósforo CRT** (`#2ee66b`) | Scanlines densas, la pupila tarda en seguirte, partes censuradas con `[REDACTADO]`. Temas de privacidad y vigilancia. |
+| **IV** | **FRACTURA** | *Fractura* | **Ámbar** (`#f0a028`) | Corrupción textual intermitente, portadora de frecuencia que se desafina. Desgaste mental, alienación algorítmica. |
+| **V** | **ABYSSUS** | *Abismo* | **Rojo óxido** (`#cc2b1e`) | Jitter continuo, bloques masivos de tachadura, el ojo no suelta el objetivo. Los pensamientos más oscuros y sin retorno. |
+| **VI** | **NIHIL** | *Nada* | **Violeta ultravioleta** (`#a855f7`) | Casi ilegible, modo negativo fotocopiado forzado, flujo subconsciente puro y sin filtro alguno. |
 
 ---
 
-## 🗃️ Estructura para expandirlo (Formato SCP / Backrooms)
+## 👁️ Mecánicas Interactivas de la Terminal Principal
 
-Para que esto crezca en comunidad y no quede como una página suelta, vamos a organizar las entradas en expedientes clasificados bajo esta taxonomía:
+1. **Silencio Total:**
+   - Cero música de fondo. Nada de reproductores molestos. El horror analógico funciona en el silencio incómodo del cuarto oscuro.
+2. **Punto REC en Rojo:**
+   - El indicador superior `● REC` pulsa en rojo sangre puro (`#ff1f1f`) con código de tiempo de milisegundos en tiempo real.
+3. **Agitación Ocular y Temblor de Pupila:**
+   - La pupila del símbolo central no solo sigue la trigonometría del cursor: **cuanto más cerca ponés el mouse del ojo, más empieza a vibrar y temblar de agitación**.
+4. **Sobrecarga Ocular y Apagón CRT:**
+   - Si te quedás con el cursor quieto encima del ojo por varios segundos, el ojo se empieza a irritar y a poner rojo en 3 fases de ira progresiva (`rage-1`, `rage-2`, `rage-3`), sacudiendo toda la pantalla.
+   - Si no apartás la vista, la tensión colapsa: **la pantalla se apaga como un televisor de tubo viejo (CRT)** con una línea horizontal brillante que se comprime en un punto central y deja todo en negro total.
+   - Al hacer click en cualquier parte de la oscuridad, el tubo se vuelve a encender.
+5. **Distorsión Automática Prolongada:**
+   - El usuario ya no toca ningún botón de distorsión. Cada 22 a 45 segundos, de forma aleatoria e impredecible, la señal sufre un micro-colapso automático con salto de tracking VHS y caracteres cifrados.
+6. **Portal del Manifiesto:**
+   - El texto central (*"You are not observing the transmission..."*) funciona como el portal de acceso que te lleva directamente al **Índice Principal de Registros** donde se listan los 6 niveles y sus respectivos posts.
+
+---
+
+## 📝 Cómo Crear un Nuevo Post
+
+Cada publicación es una página HTML independiente dentro de la carpeta `posts/` (por ejemplo: `posts/02-limen-nombre.html`), lo que te da libertad total para elegir o alterar el diseño de cada artículo manteniendo la coherencia de su estrato:
+
+1. Duplicar la plantilla base que dejamos en [posts/01-limen-arquitectura-ia.html](file:///c:/Users/Danie/OneDrive/Desktop/Estudio%20Y%20Proyectos/realport/posts/01-limen-arquitectura-ia.html).
+2. Definir el nivel en el encabezado (ejemplo: `ESTRATO II · UMBRA`) y ajustar el color de acento según la tabla de niveles.
+3. Escribir el contenido respetando el tono crudo y honesto.
+4. Agregar el enlace al post dentro de la tarjeta correspondiente en `index.html`.
+
+---
+
+## 🛠️ Estructura del Proyecto
 
 ```text
 /
-├── index.html                  # Terminal principal de acceso y sintonizador
-├── style.css                   # Sistema de diseño monocromo analógico
-├── script.js                   # Mecánicas de tracking y audio
-├── assets/                     # Metraje recuperado, escaneos y fotografías
-└── records/                    # Expedientes clasificados (tipo SCP / Niveles)
-    ├── REC-001-THE-WITNESSES/  # Los 3 observadores del brutalismo
-    ├── REC-004-FREQUENCY-MAP/  # Mapa espectrográfico de la portadora
-    ├── REC-019-THE-APERTURE/   # La lente que no se puede cerrar
-    └── TEMPLATE-EXPEDIENTE.md  # Plantilla para redactar nuevos casos
+├── index.html                   # Consola central, ojo interactivo y directorio de los 6 niveles
+├── style.css                    # Sistema de diseño monocromo analógico, paletas de niveles y CRT
+├── script.js                    # Motor de seguimiento ocular, ira, temblor y colapso de pantalla
+├── assets/
+│   └── surveillance_figure.jpg  # Fotograma original de las figuras encapuchadas en niebla
+├── posts/
+│   └── 01-limen-arquitectura-ia.html  # Post de ejemplo del Estrato I (Limen)
+└── README.md                    # Este documento explicativo
 ```
 
-### Clasificación de Amenaza / Anomalía
-
-En vez de Safe/Euclid/Keter, acá usamos estados de señal y retención:
-
-- **SILENTE:** La señal está capturada y confinada en bobina magnética fría. No emite radiación visible.
-- **INTERCEPTADO:** La señal se filtró a monitores públicos o canales de TV abierta durante la madrugada. Se requiere corte de energía zonal.
-- **VINCULADO:** El espectador estableció contacto visual directo con la apertura central por más de 12 segundos. La pupila no vuelve a soltar el objetivo.
-- **EXPURGO IMPOSIBLE:** Anomalía que corrompe el soporte físico que intenta grabarla.
-
----
-
-## 📝 Plantilla de Expediente (Para sumar nuevas entradas)
-
-Cualquier nuevo caso que redactemos tiene que respetar esta estructura de reporte confidencial:
-
-```markdown
-### EXPEDIENTE: [CÓDIGO-NUMÉRICO] // [NOMBRE CLAVE]
-**NIVEL DE EMBARGO:** [Nivel 1 al 5]
-**SOPORTE DE RECUPERACIÓN:** [Cinta VHS / Bobina 35mm / Fotocopia mimeografiada / Transmisión UHF]
-**ESTADO DE SEÑAL:** [Silente / Interceptado / Vinculado / Expurgo Imposible]
-
-#### 1. REGISTRO VISUAL
-[Descripción del metraje encontrado, hora, grano, condiciones climáticas]
-
-#### 2. PROTOCOLO DE CONFINAMIENTO DE SEÑAL
-[Instrucciones frías y paranoicas sobre qué hacer para que la señal no se propague]
-
-#### 3. TRANSCRIPCIÓN DEL INCIDENTE
-[Diálogos entrecortados, ruidos de estática, marcas de censura [REDACTADO], coordenadas]
-
-#### 4. NOTAS AL MARGEN (MANUSCRITO)
-"Anotaciones desesperadas dejadas por el operador de turno antes de apagar la consola."
-```
-
----
-
-## 🚀 Hoja de Ruta (Hacia dónde vamos)
-
-- [x] Consola central con ojo ocultista que sigue el puntero del mouse.
-- [x] Generador de audio de baja frecuencia nativo con Web Audio API.
-- [x] Modo negativo de volante fotocopiado (Xerox Invert).
-- [x] Panel de monitor CCTV con metraje de Los Testigos.
-- [ ] **Directorio interactivo de Cintas (Tapes Index):** Selector lateral para cambiar entre canales (CH-01 al CH-12) y cargar distintos incidentes.
-- [ ] **Sistema de audio polifónico:** Agregar voces distorsionadas de emisoras de números (Numbers Stations) sintetizadas con código morse o fonemas fonéticos.
-- [ ] **Expedientes interactivos individuales:** Páginas estilo informe confidencial desclasificado con fotos de evidencia generadas en alto contraste.
-- [ ] **Terminal de comandos cruda:** Consola oculta accesible tocando alguna tecla para meter códigos y desbloquear cintas prohibidas.
-
----
-
-> **AVISO:** No apague el sincronizador horizontal. Si la pantalla parpadea en negro, no mire hacia atrás.
+> **NOTA:** No desactive el sincronizador horizontal. Si la pantalla colapsa en negro, haga click en el cristal para restaurar la señal.
