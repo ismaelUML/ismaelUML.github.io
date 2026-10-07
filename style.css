@@ -21,8 +21,8 @@
   --redact-text: #050505;
   
   /* CRT & VHS Effects */
-  --scanline-opacity: 0.18;
-  --grain-opacity: 0.22;
+  --scanline-opacity: 0.15;
+  --grain-opacity: 0.08;
   --shadow-dramatic: 0 0 50px rgba(0, 0, 0, 0.95);
   --paper-crease: rgba(255, 255, 255, 0.08);
   --paper-crease-dark: rgba(0, 0, 0, 0.85);
@@ -53,8 +53,8 @@ body.mode-invert {
   --border-dim: #8c877e;
   --redact-fill: #080808;
   --redact-text: #ede9df;
-  --scanline-opacity: 0.12;
-  --grain-opacity: 0.28;
+  --scanline-opacity: 0.10;
+  --grain-opacity: 0.11;
   --paper-crease: rgba(0, 0, 0, 0.12);
   --paper-crease-dark: rgba(255, 255, 255, 0.4);
 }

@@ -11,24 +11,41 @@
   
   <link rel="stylesheet" href="../style.css">
   <style>
-    /* Estilos específicos para el Estrato V (ABYSSUS - Rojo Óxido) */
+    /* Estilos específicos para el Estrato V (ABYSSUS - Rojo Óxido y Fatiga) */
     :root {
       --abyss-red: #cc2b1e;
       --abyss-deep: #70130c;
       --abyss-glow: rgba(204, 43, 30, 0.55);
+      --tear-pale: #ffffff;
     }
 
     body {
       background-color: #030303;
       color: #ede9df;
+      overflow-x: hidden;
     }
 
+    /* Ambient twitch en el cuerpo o wrapper */
     .post-page-wrapper {
-      max-width: 840px;
+      max-width: 820px;
       margin: 0 auto;
-      padding: 2.5rem 1.5rem 7rem;
+      padding: 2.5rem 1.5rem 8rem;
       position: relative;
       z-index: 10;
+      transition: transform 0.05s ease;
+    }
+
+    /* Temblor intermitente */
+    .post-page-wrapper.page-twitch {
+      animation: ambientShudder 0.16s steps(2) forwards;
+    }
+
+    @keyframes ambientShudder {
+      0% { transform: translate(0, 0); }
+      25% { transform: translate(-2px, 1.5px) skewX(-0.3deg); }
+      50% { transform: translate(2.5px, -1px) skewX(0.2deg); }
+      75% { transform: translate(-1.5px, -2px); }
+      100% { transform: translate(0, 0); }
     }
 
     .post-nav-bar {
@@ -134,17 +151,191 @@
       margin-bottom: 0.6rem;
     }
 
-    .redacted-inline {
-      background: #ffffff;
-      color: #050505;
-      padding: 0.1rem 0.35rem;
-      font-family: var(--font-mono);
-      font-weight: 700;
+    /* Palabras que se ocultan o se mueven */
+    .shift-word {
+      display: inline-block;
+      transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+      position: relative;
     }
 
-    .strikethrough-dim {
-      text-decoration: line-through;
+    .shift-word.word-hidden {
+      color: transparent !important;
+      background: var(--abyss-red);
+      user-select: none;
+      filter: blur(1px);
+    }
+
+    .shift-word.word-swapped {
+      color: #ffffff;
+      background: rgba(204, 43, 30, 0.3);
+      transform: translateY(-2px);
+      text-decoration: underline;
+      text-decoration-color: var(--abyss-red);
+    }
+
+    /* --- PANEL DEL OBSERVADOR EN EL COSTADO DERECHO --- */
+    .abyss-observer-panel {
+      position: fixed;
+      right: 2.2rem;
+      top: 24%;
+      width: 170px;
+      z-index: 60;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .face-frame {
+      border: 1px solid var(--border-dim);
+      background: rgba(8, 8, 8, 0.85);
+      backdrop-filter: blur(4px);
+      padding: 0.8rem 0.6rem 0.6rem;
+      box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.9);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: border-color 0.4s ease;
+    }
+
+    .observer-face-svg {
+      width: 100%;
+      height: 170px;
+      overflow: visible;
+    }
+
+    /* Estilos vectoriales de la cara */
+    .face-contour {
+      fill: #0c0a0a;
+      stroke: #d9d5cb;
+      stroke-width: 2;
+      stroke-linecap: round;
+      transition: stroke 0.4s ease;
+    }
+
+    .face-shadow {
+      fill: rgba(0, 0, 0, 0.6);
+    }
+
+    .face-brow {
+      stroke: #d9d5cb;
+      stroke-width: 1.8;
+      fill: none;
+      stroke-linecap: round;
+      transition: transform 0.4s ease;
+    }
+
+    .eye-white {
+      fill: #e8e5dc;
+      stroke: #1a1a1a;
+      stroke-width: 1.2;
+    }
+
+    .face-pupil {
+      fill: #050505;
+      transition: transform 0.08s ease;
+    }
+
+    .eyelid-top {
+      fill: #0c0a0a;
+      stroke: #d9d5cb;
+      stroke-width: 1.8;
+      transition: d 0.2s ease;
+    }
+
+    .face-nose {
+      fill: none;
+      stroke: #9e9a91;
+      stroke-width: 1.4;
+      stroke-linecap: round;
+    }
+
+    .face-mouth {
+      fill: none;
+      stroke: #d9d5cb;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      transition: d 0.2s ease, stroke 0.4s ease;
+    }
+
+    /* Ojeras y marcas de cansancio (controladas por scroll) */
+    .ojeras-group {
+      opacity: 0.05;
+      transition: opacity 0.25s ease;
+    }
+
+    .ojera-shade {
+      fill: rgba(140, 25, 20, 0.45);
+    }
+
+    .ojera-crease {
+      fill: none;
+      stroke: #aa2218;
+      stroke-width: 1.2;
+      stroke-linecap: round;
+      opacity: 0.75;
+    }
+
+    /* Lágrima ocasional */
+    .tear-assembly {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .tear-assembly.tear-active {
+      opacity: 1;
+    }
+
+    .tear-trail {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.3);
+      stroke-width: 1;
+      stroke-dasharray: 2 2;
+    }
+
+    .tear-drop {
+      fill: var(--tear-pale);
+      filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.8));
+    }
+
+    /* Telemetría y estado anímico abajo de la cara */
+    .observer-telemetry {
+      width: 100%;
+      margin-top: 0.6rem;
+      border-top: 1px dashed var(--border-dim);
+      padding-top: 0.4rem;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+    }
+
+    .obs-title {
       color: var(--ink-muted);
+      display: block;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+    }
+
+    .obs-state {
+      color: var(--ink-dim);
+      display: block;
+      letter-spacing: 0.12em;
+      margin-top: 0.15rem;
+      font-weight: 700;
+      transition: color 0.3s ease;
+    }
+
+    .fatigue-meter-bar {
+      width: 100%;
+      height: 3px;
+      background: #181818;
+      margin-top: 0.35rem;
+      overflow: hidden;
+    }
+
+    .fatigue-fill {
+      width: 0%;
+      height: 100%;
+      background: var(--abyss-red);
+      transition: width 0.15s ease;
     }
 
     .post-footer-block {
@@ -163,18 +354,99 @@
     .footer-warning {
       color: var(--abyss-red);
     }
+
+    /* Ajuste responsivo para el observador en pantallas chicas */
+    @media (max-width: 1200px) {
+      .abyss-observer-panel {
+        right: 0.8rem;
+        width: 130px;
+        top: 20%;
+      }
+      .observer-face-svg {
+        height: 130px;
+      }
+    }
+
+    @media (max-width: 950px) {
+      .abyss-observer-panel {
+        position: relative;
+        right: auto;
+        top: auto;
+        width: 160px;
+        margin: 0 auto 2.5rem;
+      }
+    }
   </style>
 </head>
 <body class="mode-dark">
 
-  <!-- Overlays analógicos con tinte de fatiga -->
+  <!-- Overlays analógicos con tinte de fatiga (grano sutilizado) -->
   <div class="analog-overlay" aria-hidden="true">
     <div class="film-grain"></div>
     <div class="crt-scanlines"></div>
     <div class="crt-vignette"></div>
   </div>
 
-  <div class="post-page-wrapper">
+  <!-- Observador de Fatiga en el costado derecho -->
+  <aside class="abyss-observer-panel" id="observer-panel" aria-label="Observador de fatiga cognitiva">
+    <div class="face-frame" id="face-frame">
+      <svg class="observer-face-svg" viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+        <!-- Silueta del rostro -->
+        <path class="face-contour" id="face-contour" d="M 50,70 C 50,20 150,20 150,70 C 150,140 135,210 100,225 C 65,210 50,140 50,70 Z" />
+        <path class="face-shadow" d="M 53,75 C 55,135 68,195 100,220 C 72,190 60,130 58,75 Z" />
+        
+        <!-- Cejas -->
+        <path class="face-brow" id="brow-left" d="M 62,85 Q 82,80 95,88" />
+        <path class="face-brow" id="brow-right" d="M 138,85 Q 118,80 105,88" />
+
+        <!-- Ojeras y surcos de cansancio (profundizan con scroll) -->
+        <g class="ojeras-group" id="ojeras-layer">
+          <path class="ojera-shade" d="M 64,106 Q 80,128 96,108 Q 80,118 64,106 Z" />
+          <path class="ojera-crease" d="M 60,110 Q 78,132 98,112" />
+          <path class="ojera-shade" d="M 104,108 Q 120,128 136,106 Q 120,118 104,108 Z" />
+          <path class="ojera-crease" d="M 102,112 Q 122,132 140,110" />
+          <path class="ojera-crease" d="M 68,140 Q 78,168 85,188" />
+          <path class="ojera-crease" d="M 132,140 Q 122,168 115,188" />
+        </g>
+
+        <!-- Globo ocular -->
+        <ellipse class="eye-white" cx="80" cy="100" rx="16" ry="9" />
+        <ellipse class="eye-white" cx="120" cy="100" rx="16" ry="9" />
+
+        <!-- Pupilas que siguen el cursor -->
+        <g id="face-pupils-group">
+          <circle class="face-pupil" id="pupil-left" cx="80" cy="100" r="4.5" />
+          <circle class="face-pupil" id="pupil-right" cx="120" cy="100" r="4.5" />
+        </g>
+
+        <!-- Párpados superiores que caen con el cansancio -->
+        <path class="eyelid-top" id="eyelid-left" d="M 64,100 Q 80,91 96,100" />
+        <path class="eyelid-top" id="eyelid-right" d="M 104,100 Q 120,91 136,100" />
+
+        <!-- Nariz -->
+        <path class="face-nose" d="M 100,88 L 96,142 L 104,146" />
+
+        <!-- Boca (cae hacia abajo con resignación) -->
+        <path class="face-mouth" id="face-mouth" d="M 80,178 Q 100,178 120,178" />
+
+        <!-- Lagrimeo raro y esporádico -->
+        <g class="tear-assembly" id="tear-group">
+          <path class="tear-trail" id="tear-trail" d="M 126,108 Q 128,145 123,185" />
+          <circle class="tear-drop" id="tear-drop" cx="126" cy="108" r="2.8" />
+        </g>
+      </svg>
+
+      <div class="observer-telemetry">
+        <span class="obs-title">COGNICIÓN V:</span>
+        <span class="obs-state" id="observer-state-label">VIGILANCIA ALERTA</span>
+        <div class="fatigue-meter-bar">
+          <div class="fatigue-fill" id="fatigue-fill"></div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="post-page-wrapper" id="main-post-wrapper">
     
     <nav class="post-nav-bar">
       <a href="../index.html" class="back-link">◂ [ REGRESAR AL REGISTRO PRINCIPAL ]</a>
@@ -190,11 +462,11 @@
     <article class="post-body-content">
       
       <p>
-        Hay días donde me siento frente al teclado y me pregunto qué carajo soy como programador en realidad. Si le saco todo el humo del currículum, los nombres rimbombantes de librerías y las palabras en inglés que usamos para sonar importantes en una videollamada, lo que queda es un tipo sentado solo frente a un vidrio negro, peleando contra letras que no tienen sentimientos y que la mitad del tiempo ni siquiera responden a lo que jurabas que habías aprendido ayer.
+        Hay días donde me siento frente al teclado y me pregunto <span class="shift-word">qué carajo soy</span> como programador en realidad. Si le saco todo el humo del currículum, los nombres rimbombantes de librerías y las palabras en inglés que usamos para sonar importantes en una videollamada, lo que queda es un tipo sentado solo frente a un <span class="shift-word">vidrio negro</span>, peleando contra <span class="shift-word">letras que no tienen sentimientos</span> y que la mitad del tiempo ni siquiera responden a lo que jurabas que habías aprendido ayer.
       </p>
 
       <p>
-        El cansancio mental de esta industria no se parece a ningún otro cansancio. No te duelen los músculos ni te sangran las manos.. lo que se te gasta es la cabeza, lentamente, como si te pasaran una lija fina por los pensamientos. Vivimos metidos en una trituradora que cambia de paradigma cada cuatro meses. Apenas terminás de entender cómo mierda funciona una arquitectura, sale un framework nuevo, una librería nueva o un estándar que declara obsoleto todo lo que te costó noches enteras de frustración incorporar. No hay tregua. No hay un momento donde puedas apoyar la espalda contra la silla y decir: <em>"Listo, esto me lo sé"</em>. El suelo se mueve todo el tiempo abajo de los pies.
+        El <span class="shift-word">cansancio mental</span> de esta industria no se parece a ningún otro cansancio. No te duelen los músculos ni te sangran las manos.. lo que se te gasta es la cabeza, lentamente, como si te pasaran una <span class="shift-word">lija fina</span> por los pensamientos. Vivimos metidos en una trituradora que cambia de paradigma cada cuatro meses. Apenas terminás de entender cómo mierda funciona una arquitectura, sale un framework nuevo, una librería nueva o un estándar que declara obsoleto todo lo que te costó noches enteras de frustración incorporar. No hay tregua. No hay un momento donde puedas apoyar la espalda contra la silla y decir: <em>"Listo, esto me lo sé"</em>. El <span class="shift-word">suelo se mueve</span> todo el tiempo abajo de los pies.
       </p>
 
       <div class="abyss-callout">
@@ -202,23 +474,23 @@
       </div>
 
       <p>
-        Y en el medio de esa rueda de hámster está el síndrome del impostor, que no te suelta nunca. Da igual si resolviste un bug que tenía trabado a todo el mundo o si hiciste compilar algo que parecía imposible: diez minutos después abrís otro archivo, no entendés una función de mierda y volvés al casillero cero sintiéndote el peor estafador de la tierra. ¿Cómo no te vas a sentir un impostor cuando la industria entera se construyó sobre promesas falsas? Nos vendieron la fábula del trabajo digno, del laburo fácil de conseguir desde el sillón cobrando fortunas en dólares, y la realidad es una picadora de carne de pibes quemados compitiendo contra ofertas de trabajo que piden diez años de experiencia en cosas que inventaron antes de ayer.
+        Y en el medio de esa rueda de hámster está el <span class="shift-word">síndrome del impostor</span>, que no te suelta nunca. Da igual si resolviste un bug que tenía trabado a todo el mundo o si hiciste <span class="shift-word">compilar algo</span> que parecía imposible: diez minutos después abrís otro archivo, no entendés una función de mierda y volvés al casillero cero sintiéndote el <span class="shift-word">peor estafador</span> de la tierra. ¿Cómo no te vas a sentir un impostor cuando la industria entera se construyó sobre <span class="shift-word">promesas falsas</span>? Nos vendieron la fábula del trabajo digno, del laburo fácil de conseguir desde el sillón cobrando fortunas en dólares, y la realidad es una picadora de carne de pibes quemados compitiendo contra ofertas de trabajo que piden diez años de experiencia en cosas que inventaron antes de ayer.
       </p>
 
       <p>
-        Pero lo más aterrador no es el mercado.. lo que me hiela la sangre de verdad es la Inteligencia Artificial. Hoy nos consolamos repitiéndonos una mentira tranquilizadora: <em>"Nosotros somos los que orquestamos, nosotros tenemos el criterio"</em>. Nos creemos los directores de orquesta porque todavía sostenemos la batuta. ¿Pero y cuando ellos también puedan orquestar? ¿Hasta qué punto nos vamos a poder adaptar antes de que la velocidad del salto nos reviente las piernas? Cada avance nuevo se siente como seguir a un conejo blanco a ciegas en un bosque oscuro, rezando para que el camino no termine en un precipicio sin fondo. Y sabemos que el pozo está ahí. Lo vemos venir y seguimos corriendo atrás del conejo igual.
+        Pero lo más aterrador no es el mercado.. lo que me hiela la sangre de verdad es la <span class="shift-word">Inteligencia Artificial</span>. Hoy nos consolamos repitiéndonos una mentira tranquilizadora: <em>"Nosotros somos los que orquestamos, nosotros tenemos el criterio"</em>. Nos creemos los <span class="shift-word">directores de orquesta</span> porque todavía sostenemos la batuta. ¿Pero y cuando ellos también puedan orquestar? ¿Hasta qué punto nos vamos a poder adaptar antes de que la velocidad del salto nos reviente las piernas? Cada avance nuevo se siente como seguir a un <span class="shift-word">conejo blanco</span> a ciegas en un bosque oscuro, rezando para que el camino no termine en un <span class="shift-word">pozo al final</span>. Y sabemos que el pozo está ahí. Lo vemos venir y seguimos corriendo atrás del conejo igual.
       </p>
 
       <p>
-        Codificar es una trampa mortal porque te aísla. Pasás catorce horas seguidas obsesionado con una variable, con una sincronía, con que el código quede "elegante", y cuando salís a la calle te cuesta horrores relacionarte con gente común. No sabés de qué hablar. Sentís que tu cabeza opera a otra frecuencia, pero no una frecuencia superior ni inteligente.. una frecuencia rota, monotemática, alienada. No hago nada más. Todo mi mundo se achicó a este recuadro de fósforo.
+        Codificar es una trampa mortal porque te aísla. Pasás catorce horas seguidas obsesionado con una variable, con una sincronía, con que el código quede "elegante", y cuando salís a la calle te cuesta horrores <span class="shift-word">relacionarte con otra gente</span>. No sabés de qué hablar. Sentís que tu cabeza opera a otra frecuencia, pero no una frecuencia superior ni inteligente.. una <span class="shift-word">frecuencia rota</span>, monotemática, alienada. No hago nada más. Todo mi mundo se achicó a este recuadro de fósforo.
       </p>
 
       <p>
-        Y la verdad más dolorosa, la que cuesta admitir cuando se apagan las luces del monitor, es esta: <strong>no soy especial</strong>. Soy simple. Un tipo cualquiera que se creyó el cuento de que construía cosas que importaban. Quiero ser especial.. me desespero por serlo, pero mi propio cerebro es el primero que no me deja, saboteándome con la misma mediocridad que intento tapar escribiendo líneas de código en la oscuridad.
+        Y la verdad más dolorosa, la que cuesta admitir cuando se apagan las luces del monitor, es esta: <strong>no soy especial</strong>. Soy simple. Un tipo cualquiera que se creyó el cuento de que construía cosas que importaban. <span class="shift-word">Quiero ser especial</span>.. me desespero por serlo, pero mi propio cerebro es el primero que no me deja, saboteándome con la misma mediocridad que intento tapar escribiendo líneas de código en la oscuridad.
       </p>
 
       <p>
-        Al final del día, podés pelear, podés pasar noches sin dormir y podés fingir que sos indispensable. Da lo mismo. La inercia de la realidad es más pesada que cualquier ambición. La normalidad siempre gana.
+        Al final del día, podés pelear, podés pasar noches sin dormir y podés fingir que sos indispensable. Da lo mismo. La inercia de la realidad es más pesada que cualquier ambición. <span class="shift-word">La normalidad siempre gana</span>.
       </p>
 
     </article>
@@ -230,6 +502,219 @@
     </footer>
 
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const wrapper = document.getElementById('main-post-wrapper');
+      const pupilLeft = document.getElementById('pupil-left');
+      const pupilRight = document.getElementById('pupil-right');
+      const eyelidLeft = document.getElementById('eyelid-left');
+      const eyelidRight = document.getElementById('eyelid-right');
+      const faceMouth = document.getElementById('face-mouth');
+      const ojerasLayer = document.getElementById('ojeras-layer');
+      const faceContour = document.getElementById('face-contour');
+      const faceFrame = document.getElementById('face-frame');
+      const stateLabel = document.getElementById('observer-state-label');
+      const fatigueFill = document.getElementById('fatigue-fill');
+      const tearGroup = document.getElementById('tear-group');
+      const tearDrop = document.getElementById('tear-drop');
+      const tearTrail = document.getElementById('tear-trail');
+      const shiftWords = Array.from(document.querySelectorAll('.shift-word'));
+
+      // --- 1. Seguimiento Ocular de la Cara hacia el Cursor ---
+      let cursorX = window.innerWidth / 2;
+      let cursorY = window.innerHeight / 2;
+      let pupilX = 0;
+      let pupilY = 0;
+
+      window.addEventListener('mousemove', (e) => {
+        cursorX = e.clientX;
+        cursorY = e.clientY;
+      }, { passive: true });
+
+      function animateFacePupils() {
+        const observerBox = document.getElementById('observer-panel').getBoundingClientRect();
+        const faceCenterX = observerBox.left + observerBox.width / 2;
+        const faceCenterY = observerBox.top + observerBox.height / 2;
+
+        const deltaX = cursorX - faceCenterX;
+        const deltaY = cursorY - faceCenterY;
+        const angle = Math.atan2(deltaY, deltaX);
+        const distance = Math.hypot(deltaX, deltaY);
+
+        // Clampeo a radio del ojo de la cara
+        const clampedDist = Math.min(distance * 0.04, 4.2);
+        const targetX = Math.cos(angle) * clampedDist;
+        const targetY = Math.sin(angle) * clampedDist;
+
+        pupilX += (targetX - pupilX) * 0.15;
+        pupilY += (targetY - pupilY) * 0.15;
+
+        // Pupila izquierda centrada en (80, 100), derecha en (120, 100)
+        pupilLeft.setAttribute('cx', (80 + pupilX).toFixed(2));
+        pupilLeft.setAttribute('cy', (100 + pupilY).toFixed(2));
+        pupilRight.setAttribute('cx', (120 + pupilX).toFixed(2));
+        pupilRight.setAttribute('cy', (100 + pupilY).toFixed(2));
+
+        requestAnimationFrame(animateFacePupils);
+      }
+      requestAnimationFrame(animateFacePupils);
+
+      // --- 2. Deformación Emocional por Scroll (Cansancio, Ojeras, Boca caída) ---
+      function handleScrollEmotion() {
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollFraction = maxScroll > 0 ? Math.min(1, Math.max(0, window.scrollY / maxScroll)) : 0;
+
+        // Ojeras que se oscurecen e intensifican
+        const ojerasOpacity = 0.05 + Math.pow(scrollFraction, 1.2) * 0.95;
+        ojerasLayer.style.opacity = ojerasOpacity.toFixed(2);
+
+        // Párpados que caen pesadamente (de alerta Q 80,91 a cansancio extremo Q 80,105)
+        const droopY = 91 + (scrollFraction * 13.5);
+        eyelidLeft.setAttribute('d', `M 64,100 Q 80,${droopY.toFixed(1)} 96,100`);
+        eyelidRight.setAttribute('d', `M 104,100 Q 120,${droopY.toFixed(1)} 136,100`);
+
+        // Boca: de recta M 80,178 Q 100,178 120,178 a rictus caído M 80,186 Q 100,172 120,186
+        const mouthCenter = 178 - (scrollFraction * 6.5);
+        const mouthEnds = 178 + (scrollFraction * 9.5);
+        faceMouth.setAttribute('d', `M 80,${mouthEnds.toFixed(1)} Q 100,${mouthCenter.toFixed(1)} 120,${mouthEnds.toFixed(1)}`);
+
+        // Tinte rojizo/apagado de fatiga en el contorno del rostro
+        if (scrollFraction > 0.5) {
+          const redFactor = Math.floor((scrollFraction - 0.5) * 2 * 200);
+          faceContour.style.stroke = `rgb(${217 + redFactor * 0.15}, ${213 - redFactor * 0.6}, ${203 - redFactor * 0.6})`;
+          faceFrame.style.borderColor = `rgba(204, 43, 30, ${((scrollFraction - 0.5) * 1.5).toFixed(2)})`;
+        } else {
+          faceContour.style.stroke = '';
+          faceFrame.style.borderColor = '';
+        }
+
+        // Barra de fatiga y etiquetas de estado
+        fatigueFill.style.width = `${(scrollFraction * 100).toFixed(0)}%`;
+
+        if (scrollFraction < 0.2) {
+          stateLabel.textContent = 'VIGILANCIA: ALERTA';
+          stateLabel.style.color = '#9e9a91';
+        } else if (scrollFraction < 0.45) {
+          stateLabel.textContent = 'ESTADO: TENSIÓN';
+          stateLabel.style.color = '#d9d5cb';
+        } else if (scrollFraction < 0.72) {
+          stateLabel.textContent = 'ESTADO: DESGASTE';
+          stateLabel.style.color = '#e59424';
+        } else if (scrollFraction < 0.92) {
+          stateLabel.textContent = 'ESTADO: FATIGA CRÓNICA';
+          stateLabel.style.color = '#cc2b1e';
+        } else {
+          stateLabel.textContent = 'COLAPSO: RENDICIÓN';
+          stateLabel.style.color = '#ff1133';
+        }
+      }
+
+      window.addEventListener('scroll', handleScrollEmotion, { passive: true });
+      handleScrollEmotion();
+
+      // --- 3. Lagrimeo Raro y Esporádico ---
+      // Solo gotea si el usuario bajó al menos un 35% del artículo
+      let isTearing = false;
+      function triggerRareTear() {
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollFraction = maxScroll > 0 ? (window.scrollY / maxScroll) : 0;
+
+        if (scrollFraction > 0.35 && !isTearing) {
+          isTearing = true;
+          tearGroup.classList.add('tear-active');
+
+          let progress = 0;
+          const startY = 108;
+          const endY = 184;
+
+          const tearInterval = setInterval(() => {
+            progress += 0.025;
+            const currentY = startY + (endY - startY) * progress;
+            tearDrop.setAttribute('cy', currentY.toFixed(1));
+            // Sutil desvío lateral
+            tearDrop.setAttribute('cx', (126 - Math.sin(progress * Math.PI) * 2.5).toFixed(1));
+
+            if (progress >= 1) {
+              clearInterval(tearInterval);
+              setTimeout(() => {
+                tearGroup.classList.remove('tear-active');
+                tearDrop.setAttribute('cy', startY);
+                tearDrop.setAttribute('cx', 126);
+                isTearing = false;
+              }, 1200);
+            }
+          }, 40);
+        }
+
+        // Intervalo aleatorio largo para que sea sorpresivo y raro (14 a 28 segundos)
+        const nextTear = Math.floor(Math.random() * 14000) + 14000;
+        setTimeout(triggerRareTear, nextTear);
+      }
+      setTimeout(triggerRareTear, 9000);
+
+      // --- 4. Temblor Ambiental Esporádico en la Página ---
+      function triggerAmbientTwitch() {
+        if (wrapper && Math.random() > 0.3) {
+          wrapper.classList.add('page-twitch');
+          setTimeout(() => {
+            wrapper.classList.remove('page-twitch');
+          }, 160);
+        }
+
+        // Cada 7 a 15 segundos
+        const nextTwitch = Math.floor(Math.random() * 8000) + 7000;
+        setTimeout(triggerAmbientTwitch, nextTwitch);
+      }
+      setTimeout(triggerAmbientTwitch, 5000);
+
+      // --- 5. Palabras que se Ocultan o Cambian de Lugar ---
+      function triggerWordDistortion() {
+        if (shiftWords.length < 2) return;
+
+        const isSwap = Math.random() > 0.45;
+
+        if (isSwap) {
+          // Intercambiar temporalmente dos palabras
+          const idx1 = Math.floor(Math.random() * shiftWords.length);
+          let idx2 = Math.floor(Math.random() * shiftWords.length);
+          if (idx1 === idx2) idx2 = (idx1 + 1) % shiftWords.length;
+
+          const el1 = shiftWords[idx1];
+          const el2 = shiftWords[idx2];
+          const text1 = el1.textContent;
+          const text2 = el2.textContent;
+
+          el1.classList.add('word-swapped');
+          el2.classList.add('word-swapped');
+          el1.textContent = text2;
+          el2.textContent = text1;
+
+          setTimeout(() => {
+            el1.textContent = text1;
+            el2.textContent = text2;
+            el1.classList.remove('word-swapped');
+            el2.classList.remove('word-swapped');
+          }, 3400);
+
+        } else {
+          // Ocultar una palabra (censura/vacío)
+          const chosen = shiftWords[Math.floor(Math.random() * shiftWords.length)];
+          chosen.classList.add('word-hidden');
+
+          setTimeout(() => {
+            chosen.classList.remove('word-hidden');
+          }, 2100);
+        }
+
+        // Siguiente distorsión en 4 a 8 segundos
+        const nextDistort = Math.floor(Math.random() * 4000) + 4000;
+        setTimeout(triggerWordDistortion, nextDistort);
+      }
+      setTimeout(triggerWordDistortion, 4000);
+
+    });
+  </script>
 
 </body>
 </html>
