@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>REC-03 // UMBRA · El Dilema del Compilador a las 4 AM</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Share+Tech+Mono&family=Special+Elite&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ==========================================================================
+       ESTRATO II: UMBRA (La Habitación a las 4 AM, MidnightOS & El Pasillo)
+       Cero formato expediente/REC. Atmósfera inmersiva en primera persona.
+       ========================================================================== */
+    :root {
+      --room-black: #040507;
+      --desk-dark: #0a0d13;
+      --door-shadow: #010203;
+      --screen-glow-blue: rgba(88, 140, 185, 0.18);
+      --screen-glow-red: rgba(220, 50, 40, 0.35);
+      --os-bg: #0d1117;
+      --os-chrome: #161b22;
+      --os-titlebar: #1c2128;
+      --os-border: #30363d;
+      --os-text: #c9d1d9;
+      --os-text-dim: #8b949e;
+      --os-accent: #688fae;
+      --os-green: #3fb950;
+      --os-red: #f85149;
+      --os-yellow: #d29922;
+      --postit-bg: #fef08a;
+      --postit-text: #713f12;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--room-black);
+      color: var(--os-text);
+      font-family: 'Share Tech Mono', monospace;
+      overflow-x: hidden;
+      min-height: 100vh;
+      user-select: text;
+    }
+
+    /* Contenedor de la habitación en penumbra */
+    .dark-room-environment {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 30px 20px 100px;
+      background: radial-gradient(circle at 44% 38%, rgba(22, 32, 48, 0.55) 0%, rgba(4, 5, 8, 0.98) 75%);
+      transition: background 0.35s ease;
+    }
+
+    /* ==========================================================================
+       PUERTA ENTREABIERTA Y PASILLO OSCURO (EN LA PERIFERIA DERECHA)
+       ========================================================================== */
+    .hallway-door-periphery {
+      position: fixed;
+      right: 3.5vw;
+      top: 8vh;
+      width: 140px;
+      height: 480px;
+      pointer-events: auto;
+      z-index: 10;
+      cursor: help;
+    }
+
+    .door-frame-casing {
+      width: 100%;
+      height: 100%;
+      border-top: 4px solid #141720;
+      border-left: 4px solid #1c222e;
+      border-right: 2px solid #0d0f15;
+      background: var(--door-shadow);
+      box-shadow: inset 8px 0 35px rgba(0, 0, 0, 0.98), 0 0 20px rgba(0,0,0,0.8);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .door-wooden-slab {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 38px;
+      height: 100%;
+      background: linear-gradient(to right, #12161f 0%, #07090d 100%);
+      border-right: 1px solid #252c3a;
+      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.9);
+      transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .door-handle-metal {
+      position: absolute;
+      top: 52%;
+      right: 5px;
+      width: 12px;
+      height: 4px;
+      background: #475569;
+      box-shadow: 0 0 3px rgba(255, 255, 255, 0.2);
+    }
+
+    /* Ojos blancos con destello en la sombra */
+    .hallway-watcher-eyes {
+      position: absolute;
+      top: 155px;
+      left: 58px;
+      width: 48px;
+      height: 14px;
+      display: flex;
+      justify-content: space-between;
+      opacity: 0;
+      transform: translateX(0);
+      transition: opacity 1.4s ease, transform 0.3s ease;
+      filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.95));
+      pointer-events: none;
+    }
+
+    .hallway-watcher-eyes.eyes-visible {
+      opacity: 0.95;
+    }
+
+    .hallway-watcher-eyes.eyes-retreat {
+      opacity: 0 !important;
+      transform: translateX(12px) scale(0.85);
+      transition: opacity 0.15s ease, transform 0.15s ease;
+    }
+
+    .hallway-watcher-eyes.eyes-blinking {
+      animation: eyesBlink 0.22s steps(2) forwards;
+    }
+
+    @keyframes eyesBlink {
+      0% { transform: scaleY(1); }
+      50% { transform: scaleY(0.08); }
+      100% { transform: scaleY(1); }
+    }
+
+    .watcher-eye {
+      width: 10px;
+      height: 8px;
+      background: #ffffff;
+      border-radius: 50%;
+      position: relative;
+      box-shadow: 0 0 8px 2px #ffffff, 0 0 20px 4px rgba(210, 235, 255, 0.85);
+    }
+
+    .watcher-eye::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 3px;
+      width: 2.5px;
+      height: 3.5px;
+      background: #000000;
+      border-radius: 50%;
+    }
+
+    .door-ambient-label {
+      position: absolute;
+      bottom: -22px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      color: #3b4252;
+      opacity: 0.7;
+    }
+
+    /* ==========================================================================
+       EL MONITOR DE ESCRITORIO (LA ESTACIÓN DE TRABAJO A LAS 4 AM)
+       ========================================================================== */
+    .workstation-monitor-rig {
+      width: 100%;
+      max-width: 860px;
+      margin-right: 170px; /* Margen para encuadrar la puerta a la derecha */
+      position: relative;
+      z-index: 20;
+    }
+
+    .monitor-bezel-frame {
+      background: #0f1217;
+      border: 14px solid #161a22;
+      border-bottom: 28px solid #13161c;
+      border-radius: 6px;
+      box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.98),
+        0 0 60px var(--screen-glow-blue),
+        inset 0 0 3px rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+      position: relative;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .monitor-bezel-frame.screen-error-flicker {
+      box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.98),
+        0 0 90px var(--screen-glow-red),
+        inset 0 0 8px rgba(248, 81, 73, 0.35);
+    }
+
+    /* LED de encendido del monitor */
+    .monitor-power-led {
+      position: absolute;
+      bottom: -21px;
+      right: 28px;
+      width: 6px;
+      height: 6px;
+      background: #688fae;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #688fae;
+      animation: ledPulse 4s infinite ease-in-out;
+    }
+
+    @keyframes ledPulse {
+      0%, 100% { opacity: 0.85; }
+      50% { opacity: 1; }
+    }
+
+    .monitor-brand-tag {
+      position: absolute;
+      bottom: -23px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.62rem;
+      letter-spacing: 0.25em;
+      color: #384252;
+      font-weight: 700;
+      user-select: none;
+    }
+
+    /* ==========================================================================
+       SISTEMA OPERATIVO: MidnightOS Workstation v2.4
+       ========================================================================== */
+    .midnight-os-desktop {
+      background: var(--os-bg);
+      background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 24px 24px;
+      min-height: 680px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Barra Superior del Sistema Operativo */
+    .os-topbar {
+      background: var(--os-chrome);
+      border-bottom: 1px solid var(--os-border);
+      padding: 0.45rem 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.72rem;
+      color: var(--os-text-dim);
+      user-select: none;
+    }
+
+    .os-menu-items {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .os-logo {
+      color: #ffffff;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .os-menu-btn {
+      color: var(--os-text-dim);
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.15s ease;
+    }
+
+    .os-menu-btn:hover {
+      color: #ffffff;
+    }
+
+    .os-system-tray {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    .os-clock-readout {
+      color: #ffffff;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 0.1rem 0.45rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .os-exit-link {
+      color: var(--os-accent);
+      text-decoration: none;
+      border: 1px solid var(--os-border);
+      padding: 0.15rem 0.5rem;
+      transition: all 0.15s ease;
+    }
+
+    .os-exit-link:hover {
+      background: var(--os-accent);
+      color: #000000;
+    }
+
+    /* Ventana Principal del Editor de Texto (VIM / Markdown) */
+    .os-editor-window {
+      margin: 1.2rem;
+      background: #090d14;
+      border: 1px solid var(--os-border);
+      box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.8);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .window-titlebar {
+      background: var(--os-titlebar);
+      border-bottom: 1px solid var(--os-border);
+      padding: 0.5rem 0.8rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+
+    .window-title-text {
+      font-size: 0.74rem;
+      color: #e6edf3;
+      letter-spacing: 0.06em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .titlebar-controls {
+      display: flex;
+      gap: 6px;
+    }
+
+    .win-ctrl-btn {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 0, 0, 0.4);
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .btn-close { background: #ff5f56; }
+    .btn-min { background: #ffbd2e; }
+    .btn-max { background: #27c93f; }
+
+    /* Barra de estado del editor */
+    .editor-status-strip {
+      background: #111620;
+      border-bottom: 1px solid var(--os-border);
+      padding: 0.35rem 0.8rem;
+      font-size: 0.68rem;
+      color: var(--os-text-dim);
+      display: flex;
+      justify-content: space-between;
+      letter-spacing: 0.05em;
+    }
+
+    /* Cuerpo del Ensayo */
+    .editor-text-body {
+      padding: 2.2rem 2.8rem 3rem;
+      font-family: 'Courier Prime', Courier, monospace;
+      font-size: 1.08rem;
+      line-height: 1.95;
+      color: #ede9df;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .editor-text-body h1 {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: clamp(1.8rem, 3.8vw, 2.4rem);
+      line-height: 1.2;
+      color: #ffffff;
+      margin: 0 0 0.8rem 0;
+      letter-spacing: 0.04em;
+      border-bottom: 1px solid var(--os-border);
+      padding-bottom: 0.9rem;
+      max-width: calc(100% - 220px);
+    }
+
+    .editor-meta-header {
+      font-size: 0.76rem;
+      color: var(--os-accent);
+      letter-spacing: 0.14em;
+      margin-bottom: 0.5rem;
+      display: block;
+      max-width: calc(100% - 220px);
+    }
+
+    .editor-text-body p {
+      margin: 0;
+      text-align: justify;
+      hyphens: auto;
+    }
+
+    /* Bloques de código crudo a las 4 AM */
+    .dev-code-snippet {
+      background: #05070a;
+      border: 1px solid var(--os-border);
+      border-left: 3px solid var(--os-accent);
+      padding: 1.2rem 1.4rem;
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: #7dd3fc;
+      overflow-x: auto;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.7);
+    }
+
+    .dev-comment {
+      color: #94a3b8;
+      font-style: italic;
+    }
+
+    .dev-error-line {
+      color: var(--os-red);
+      font-weight: 700;
+    }
+
+    /* Cita destacada de confesión */
+    .insomnia-quote {
+      border: 1px dashed var(--os-border);
+      background: rgba(104, 143, 174, 0.05);
+      padding: 1.4rem 1.8rem;
+      font-style: italic;
+      color: #ffffff;
+      line-height: 1.7;
+      position: relative;
+    }
+
+    .insomnia-quote::before {
+      content: '// 04:26 AM — DIARIO DE DEUDA:';
+      display: block;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      font-style: normal;
+      letter-spacing: 0.15em;
+      color: var(--os-accent);
+      margin-bottom: 0.6rem;
+    }
+
+    /* ==========================================================================
+       POST-IT DIGITAL AMARILLO EN EL ESCRITORIO
+       ========================================================================== */
+    .desktop-sticky-note {
+      position: absolute;
+      top: 60px;
+      right: 18px;
+      width: 210px;
+      background: var(--postit-bg);
+      color: var(--postit-text);
+      padding: 1rem 0.9rem;
+      font-family: 'Special Elite', cursive, monospace;
+      font-size: 0.82rem;
+      line-height: 1.45;
+      box-shadow: 4px 6px 14px rgba(0, 0, 0, 0.85);
+      transform: rotate(2.5deg);
+      z-index: 25;
+      user-select: none;
+      transition: transform 0.2s ease;
+    }
+
+    .desktop-sticky-note:hover {
+      transform: rotate(0deg) scale(1.03);
+    }
+
+    .sticky-header {
+      font-weight: 700;
+      border-bottom: 1px dashed rgba(113, 63, 18, 0.4);
+      padding-bottom: 4px;
+      margin-bottom: 6px;
+      font-size: 0.75rem;
+    }
+
+    /* ==========================================================================
+       MINI TERMINAL DEL COMPILADOR INTERACTIVO (DOCK INFERIOR)
+       ========================================================================== */
+    .compiler-dock-panel {
+      margin: 0 1.2rem 1.4rem;
+      background: #05070a;
+      border: 1px solid var(--os-border);
+      box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.8);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.76rem;
+    }
+
+    .compiler-dock-header {
+      background: #121720;
+      border-bottom: 1px solid var(--os-border);
+      padding: 0.4rem 0.8rem;
+      display: flex;
+      justify-content: space-between;
+      color: var(--os-text-dim);
+    }
+
+    .compiler-dock-body {
+      padding: 0.8rem 1rem;
+      color: var(--os-text);
+      line-height: 1.6;
+    }
+
+    .compiler-actions {
+      display: flex;
+      gap: 0.8rem;
+      margin-top: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .comp-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--os-border);
+      color: var(--os-text);
+      padding: 0.35rem 0.8rem;
+      font-family: inherit;
+      font-size: 0.72rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .comp-btn:hover {
+      background: #ffffff;
+      color: #000000;
+    }
+
+    .comp-btn-dirty {
+      border-color: var(--os-yellow);
+      color: var(--os-yellow);
+    }
+
+    .comp-btn-dirty:hover {
+      background: var(--os-yellow);
+      color: #000000;
+    }
+
+    /* Footer de la ventana */
+    .editor-footer-status {
+      border-top: 1px solid var(--os-border);
+      padding: 0.5rem 0.8rem;
+      font-size: 0.68rem;
+      color: var(--os-text-dim);
+      background: var(--os-chrome);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* ==========================================================================
+       RESPONSIVIDAD (MOBILE Y PANTALLAS PEQUEÑAS)
+       ========================================================================== */
+    @media (max-width: 1200px) {
+      .workstation-monitor-rig {
+        margin-right: 120px;
+      }
+      .hallway-door-periphery {
+        right: 1.5vw;
+        width: 110px;
+      }
+      .desktop-sticky-note {
+        display: none; /* Se oculta para no tapar texto en pantallas estrechas */
+      }
+    }
+
+    @media (max-width: 980px) {
+      .dark-room-environment {
+        padding: 15px 10px 80px;
+      }
+      .workstation-monitor-rig {
+        margin-right: 0;
+        max-width: 100%;
+      }
+      /* En pantallas chicas, la puerta se ubica como un centinela superior */
+      .hallway-door-periphery {
+        position: relative;
+        right: auto;
+        top: auto;
+        width: 100%;
+        max-width: 320px;
+        height: 120px;
+        margin: 0 auto 1.5rem;
+      }
+      .door-frame-casing {
+        border-right: 4px solid #1c222e;
+      }
+      .hallway-watcher-eyes {
+        top: 45px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .editor-text-body {
+        padding: 1.5rem 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="dark-room-environment" id="room-canvas">
+
+    <!-- Puerta abierta hacia el pasillo en penumbra -->
+    <div class="hallway-door-periphery" id="hallway-door-area" title="El pasillo a oscuras...">
+      <div class="door-frame-casing">
+        <div class="door-wooden-slab" id="door-slab">
+          <div class="door-handle-metal"></div>
+        </div>
+        
+        <!-- Ojos blancos con destello que se asoman en la oscuridad -->
+        <div class="hallway-watcher-eyes" id="hallway-eyes" aria-hidden="true">
+          <div class="watcher-eye"></div>
+          <div class="watcher-eye"></div>
+        </div>
+      </div>
+      <div class="door-ambient-label">[ PASILLO // OSCURIDAD ]</div>
+    </div>
+
+    <!-- Monitor en el centro del escritorio -->
+    <main class="workstation-monitor-rig" id="monitor-rig">
+      <div class="monitor-bezel-frame" id="monitor-bezel">
+
+        <!-- Sistema Operativo MidnightOS -->
+        <div class="midnight-os-desktop">
+
+          <!-- Barra de Sistema Superior -->
+          <div class="os-topbar">
+            <div class="os-menu-items">
+              <span class="os-logo">[■ MidnightOS]</span>
+              <span class="os-menu-btn">Archivo</span>
+              <span class="os-menu-btn">Compilar</span>
+              <span class="os-menu-btn">Diagnóstico</span>
+              <span class="os-menu-btn">Ver</span>
+            </div>
+
+            <div class="os-system-tray">
+              <span>COOLER: 4800 RPM</span>
+              <span>SWAP: 98% [CRÍTICO]</span>
+              <span class="os-clock-readout" id="os-live-clock">04:18 AM</span>
+              <a href="../index.html" class="os-exit-link">◂ REGRESAR AL ÍNDICE</a>
+            </div>
+          </div>
+
+          <!-- Post-it analógico digital pegado al monitor -->
+          <aside class="desktop-sticky-note" aria-label="Nota rápida de insomnio">
+            <div class="sticky-header">04:12 AM // NOTA URGENTE</div>
+            - Si meto 'unsafe' zafa el borrow checker.<br>
+            - Si mergeo a main ahora, nadie lo ve hasta las 9.<br>
+            - El lunes lo refactorizo prolijo (mentira, no lo toco nunca más).
+          </aside>
+
+          <!-- Ventana de Editor de Texto (El Ensayo) -->
+          <article class="os-editor-window">
+            
+            <div class="window-titlebar">
+              <div class="window-title-text">
+                <span>[■]</span>
+                <span>dilema_compilador_04am.md — VIM v8.2 [Solo Lectura]</span>
+              </div>
+              <div class="titlebar-controls">
+                <span class="win-ctrl-btn btn-min" title="Minimizar"></span>
+                <span class="win-ctrl-btn btn-max" title="Maximizar"></span>
+                <span class="win-ctrl-btn btn-close" id="btn-close-window" title="Cerrar"></span>
+              </div>
+            </div>
+
+            <div class="editor-status-strip">
+              <span>MODO: LECTURA // CODIFICACIÓN: UTF-8</span>
+              <span>LÍNEAS: 142 // BYTES: 8,412</span>
+              <span>ESTADO DE PROCESO: PID 4192 [BLOQUEADO]</span>
+            </div>
+
+            <div class="editor-text-body">
+              <span class="editor-meta-header">ESTRATO II // UMBRA · 28 DE SEPTIEMBRE</span>
+              <h1>El Dilema del Compilador a las 4 AM y la Deuda Técnica Silenciosa</h1>
+
+              <p>
+                Son las cuatro y dieciocho de la madrugada de un martes. No se escucha un solo ruido en el departamento excepto el silbido agudo y monótono de los ventiladores de la notebook, que a esta altura suenan como turbinas de avión pidiendo por favor que apagues la máquina. La taza de café sobre el escritorio está helada desde las dos; tiene esa película aceitosa flotando en la superficie que te da asco mirar, pero le pegás un sorbo distraído igual porque tenés la garganta seca de respirar aire caliente frente al fósforo de la pantalla.
+              </p>
+
+              <p>
+                En la terminal, el compilador acaba de reventar por decimoquinta vez consecutiva con el mismo error lapidario:
+              </p>
+
+              <div class="dev-code-snippet">
+                <span class="dev-error-line">error[E0502]: cannot borrow `state` as mutable because it is also borrowed as immutable</span><br>
+                &nbsp;&nbsp;--> src/core/session_cache.rs:184:13<br>
+                &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;let ref_lock = self.state.borrow();<br>
+                &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;self.state.mutate_active_buffer(packet); <span class="dev-comment">// mutable borrow occurs here</span><br>
+                <span class="dev-comment">// 28 warnings emitted. Build aborted.</span>
+              </div>
+
+              <p>
+                Sabés con quirúrgica precisión matemática cómo resolverlo bien: implicaría rediseñar la jerarquía del buffer, desacoplar el ciclo de referencias, rehacer dos interfaces y tirar a la basura tres horas de código que te costaron sangre. Significa aceptar que empezaste mal el diseño a la una de la mañana y que el compilador, con su frialdad algorítmica exasperante, tiene razón.
+              </p>
+
+              <div class="insomnia-quote">
+                "La deuda técnica no es un concepto abstracto de gestión ni un gráfico de Jira. La deuda técnica es una decisión moral cobarde que tomás a las cuatro de la mañana cuando te arden las pupilas y querés que la máquina se calle de una vez para poder dormir."
+              </div>
+
+              <p>
+                Y ahí, en ese instante exacto de debilidad humana absoluta, aparece la tentación. El pacto con el diablo que todo programador conoce y que casi nadie confiesa en voz alta: el parche sucio. Clavarle un <code>unsafe</code> en Rust. Tirarle un <code>// @ts-ignore</code> en TypeScript. Envolver la llamada en un <code>try { ... } catch (e) {}</code> vacío en Java o mutar un puntero crudo en C.
+              </p>
+
+              <p>
+                El compilador no sabe de plazos de entrega, ni de tu dolor de espalda, ni de que a las nueve tenés una reunión donde tenés que fingir que sos una persona funcional. El compilador solo defiende la integridad de la memoria. Pero a las cuatro de la mañana la integridad de la memoria te importa tres carajos; lo único que querés es ver esa línea en verde. El tiro de dopamina barato de que el ejecutable termine de construirse para commitear con un mensaje cobarde tipo <em>"fix: minor edge case"</em> y cerrar la tapa de la laptop.
+              </p>
+
+              <p>
+                El problema es que ese código nunca se refactoriza. Te prometés a vos mismo en la oscuridad: <em>"El lunes con la cabeza fresca lo abro y lo hago prolijo"</em>. Mentira. Pasan los meses, el proyecto avanza, se apilan capas de abstracción arriba de esa bomba de tiempo y un día, seis meses después a las tres de la tarde con producción caída y los servidores prendidos fuego, alguien hace un <code>git blame</code> y tu nombre aparece grabado en piedra como el arquitecto de la catástrofe.
+              </p>
+
+              <p>
+                A las cuatro de la mañana el silencio de la casa no es pacífico.. es pesado, casi hostil. Mirás de reojo la puerta abierta del pasillo en penumbra y sentís esa corriente de aire frío en la nuca. La sensación incómoda de que la soledad a esta hora no está tan vacía como creías, y de que cada atajo que dejás en el código es una parte tuya que se va pudriendo en silencio.
+              </p>
+
+            </div>
+
+            <div class="editor-footer-status">
+              <span>VIM // NORMAL MODE</span>
+              <span>BUF 1/1 [MODIFICADO]</span>
+              <span>"dilema_compilador_04am.md" 142L, 8412B</span>
+            </div>
+
+          </article>
+
+          <!-- Dock Inferior del Compilador Interactivo -->
+          <section class="compiler-dock-panel" aria-label="Terminal de compilación interactiva">
+            <div class="compiler-dock-header">
+              <span>TERMINAL // DEBUGGER_CONSOLA</span>
+              <span id="compiler-status-indicator" style="color: var(--os-red);">● ESTADO: FAILED (EXIT 101)</span>
+            </div>
+
+            <div class="compiler-dock-body">
+              <div id="compiler-output-text">
+                $ cargo build --release --locked<br>
+                Compiling core-runtime v0.9.4 (/home/dev/midnight-session)<br>
+                <span style="color: var(--os-red);">error[E0502]: cannot borrow `state` as mutable</span><br>
+                error: could not compile `core-runtime` due to 1 previous error; 28 warnings emitted
+              </div>
+
+              <div class="compiler-actions">
+                <button type="button" class="comp-btn" id="btn-clean-build">[ RE-COMPILAR // LIMPIO ]</button>
+                <button type="button" class="comp-btn comp-btn-dirty" id="btn-dirty-patch">[ APLICAR PARCHE SUCIO // UNSAFE_CAST ]</button>
+              </div>
+            </div>
+          </section>
+
+        </div>
+
+        <div class="monitor-brand-tag">NORDIC // SYNC-40</div>
+        <div class="monitor-power-led" id="power-led"></div>
+      </div>
+    </main>
+
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const roomCanvas = document.getElementById('room-canvas');
+      const hallwayArea = document.getElementById('hallway-door-area');
+      const hallwayEyes = document.getElementById('hallway-eyes');
+      const doorSlab = document.getElementById('door-slab');
+      const monitorBezel = document.getElementById('monitor-bezel');
+      const osClock = document.getElementById('os-live-clock');
+      const btnCleanBuild = document.getElementById('btn-clean-build');
+      const btnDirtyPatch = document.getElementById('btn-dirty-patch');
+      const compilerOutput = document.getElementById('compiler-output-text');
+      const compilerStatus = document.getElementById('compiler-status-indicator');
+      const btnClose = document.getElementById('btn-close-window');
+
+      // --- 1. COMPORTAMIENTO DE LOS OJOS BLANCOS EN EL PASILLO ---
+      let eyesPresent = false;
+      let eyeTimeout = null;
+      let isRetreating = false;
+      let idleTimer = null;
+
+      function spawnEyes() {
+        if (isRetreating) return;
+        eyesPresent = true;
+        hallwayEyes.classList.remove('eyes-retreat');
+        hallwayEyes.classList.add('eyes-visible');
+
+        // Los ojos parpadean cada 3 a 5 segundos mientras están visibles
+        triggerPeriodicBlink();
+      }
+
+      function hideEyesInstant() {
+        if (!eyesPresent) return;
+        eyesPresent = false;
+        isRetreating = true;
+        hallwayEyes.classList.add('eyes-retreat');
+        hallwayEyes.classList.remove('eyes-visible');
+
+        // Leve movimiento de la puerta como si algo retrocediera
+        if (doorSlab) {
+          doorSlab.style.transform = 'translateX(-2px)';
+          setTimeout(() => doorSlab.style.transform = '', 300);
+        }
+
+        setTimeout(() => {
+          isRetreating = false;
+          scheduleNextSpawn(Math.floor(Math.random() * 6000) + 7000);
+        }, 1200);
+      }
+
+      function triggerPeriodicBlink() {
+        if (!eyesPresent) return;
+        hallwayEyes.classList.add('eyes-blinking');
+        setTimeout(() => {
+          hallwayEyes.classList.remove('eyes-blinking');
+          if (eyesPresent) {
+            const nextBlink = Math.floor(Math.random() * 3500) + 2500;
+            setTimeout(triggerPeriodicBlink, nextBlink);
+          }
+        }, 220);
+      }
+
+      function scheduleNextSpawn(delay) {
+        clearTimeout(eyeTimeout);
+        eyeTimeout = setTimeout(() => {
+          spawnEyes();
+        }, delay);
+      }
+
+      // Al cargar, los ojos aparecen por primera vez a los 5 segundos
+      scheduleNextSpawn(5000);
+
+      // Si el cursor se acerca a la zona de la puerta (o entra al área del pasillo),
+      // los ojos retroceden y se esconden en la oscuridad de inmediato.
+      hallwayArea.addEventListener('mouseenter', hideEyesInstant);
+      hallwayArea.addEventListener('mousemove', hideEyesInstant);
+
+      // Detección de proximidad del cursor en toda la ventana
+      window.addEventListener('mousemove', (e) => {
+        const doorRect = hallwayArea.getBoundingClientRect();
+        const distToDoor = Math.hypot(e.clientX - (doorRect.left + doorRect.width / 2), e.clientY - (doorRect.top + doorRect.height / 2));
+
+        // Si el mouse se acerca a menos de 280px de la puerta, se ocultan
+        if (distToDoor < 280 && eyesPresent) {
+          hideEyesInstant();
+        }
+
+        // Si el usuario pasa un rato quieto leyendo el monitor, vuelven a asomarse
+        clearTimeout(idleTimer);
+        idleTimer = setTimeout(() => {
+          if (!eyesPresent && distToDoor >= 350) {
+            spawnEyes();
+          }
+        }, 4000);
+      }, { passive: true });
+
+      // --- 2. RELOJ DINÁMICO DE INSOMNIO CON EL SCROLL ---
+      window.addEventListener('scroll', () => {
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollFraction = maxScroll > 0 ? Math.min(1, Math.max(0, window.scrollY / maxScroll)) : 0;
+
+        // Inicia a las 04:18 AM y avanza hasta las 04:49 AM con la lectura
+        const startMinutes = 18;
+        const currentMinute = Math.min(49, Math.floor(startMinutes + scrollFraction * 31));
+        const formattedMin = currentMinute < 10 ? `0${currentMinute}` : `${currentMinute}`;
+        if (osClock) {
+          osClock.textContent = `04:${formattedMin} AM`;
+        }
+
+        // Si el usuario llega al fondo (4:45 AM+), los ojos se quedan más tiempo
+        if (scrollFraction > 0.8 && !eyesPresent && !isRetreating) {
+          spawnEyes();
+        }
+      }, { passive: true });
+
+      // --- 3. TERMINAL INTERACTIVA DEL COMPILADOR A LAS 4 AM ---
+      btnCleanBuild.addEventListener('click', () => {
+        compilerStatus.textContent = "● ESTADO: COMPILANDO...";
+        compilerStatus.style.color = "var(--os-yellow)";
+        compilerOutput.innerHTML = "$ cargo build --release<br>Compiling core-runtime v0.9.4...<br><span style='color: #94a3b8;'>[Analizando ciclo de referencias...]</span>";
+
+        // Destello breve en la habitación
+        monitorBezel.classList.remove('screen-error-flicker');
+
+        setTimeout(() => {
+          compilerStatus.textContent = "● ESTADO: FAILED (EXIT 101)";
+          compilerStatus.style.color = "var(--os-red)";
+          compilerOutput.innerHTML = `
+            $ cargo build --release<br>
+            <span style="color: var(--os-red);">error[E0502]: cannot borrow \`state\` as mutable</span><br>
+            --> src/core/session_cache.rs:184:13<br>
+            <span style="color: #94a3b8;">// El compilador sigue teniendo razón. Necesitás rediseñar el buffer.</span>
+          `;
+          monitorBezel.classList.add('screen-error-flicker');
+          setTimeout(() => monitorBezel.classList.remove('screen-error-flicker'), 400);
+        }, 900);
+      });
+
+      btnDirtyPatch.addEventListener('click', () => {
+        compilerStatus.textContent = "● ESTADO: APLICANDO HACK...";
+        compilerStatus.style.color = "var(--os-yellow)";
+        compilerOutput.innerHTML = "$ sed -i 's/state.borrow/unsafe { state.get_unchecked_mut }/' session_cache.rs<br><span style='color: var(--os-yellow);'>// Inyectando puntero crudo...</span>";
+
+        setTimeout(() => {
+          compilerStatus.textContent = "● ESTADO: COMPILADO (PELIGROSO)";
+          compilerStatus.style.color = "var(--os-green)";
+          compilerOutput.innerHTML = `
+            $ cargo build --release<br>
+            Finished release [optimized] target(s) in 2.14s<br>
+            <span style="color: var(--os-green);">[OK] Binario generado.</span><br>
+            <span style="color: var(--os-yellow);">⚠ DEUDA TÉCNICA: +$14,200 // Bomba de tiempo plantada en producción.</span>
+          `;
+
+          // Parpadeo de la luz en la habitación
+          monitorBezel.classList.add('screen-error-flicker');
+          setTimeout(() => monitorBezel.classList.remove('screen-error-flicker'), 200);
+
+          // Al hacer el parche sucio, los ojos en el pasillo se asoman de inmediato
+          setTimeout(spawnEyes, 800);
+        }, 1100);
+      });
+
+      // Intentar cerrar la ventana
+      btnClose.addEventListener('click', () => {
+        alert("MidnightOS: No podés cerrar el editor. El branch sigue roto y son las 4 AM.");
+      });
+    });
+  </script>
+
+</body>
+</html>
