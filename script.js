@@ -12,12 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const pupilAssembly = document.getElementById('pupil-target');
   const pupilCircle = document.getElementById('pupil-circle');
   const vhsClock = document.getElementById('vhs-clock');
-  const terminalFeed = document.getElementById('terminal-feed');
   const mainHeadline = document.getElementById('main-headline');
   const vhsGlitchBar = document.getElementById('vhs-glitch-bar');
   const crtOverlay = document.getElementById('crt-off-overlay');
   const crtCue = document.getElementById('crt-reboot-cue');
-  const manifestoPortal = document.getElementById('manifesto-portal');
 
   // --- 1. Real-time VHS Clock (with Milliseconds / Frames) ---
   function updateVHSClock() {
@@ -33,22 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
   setInterval(updateVHSClock, 40);
   updateVHSClock();
 
-  // --- 2. Terminal Log Dispatcher ---
+  // --- 2. Telemetry Dispatcher ---
   function appendLog(message) {
-    if (!terminalFeed) return;
-    const now = new Date();
-    const timeStr = `[${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}]`;
-    
-    const row = document.createElement('div');
-    row.className = 'log-row';
-    row.innerHTML = `<span class="log-time">${timeStr}</span> <span class="log-txt">${message}</span>`;
-    
-    terminalFeed.appendChild(row);
-    terminalFeed.scrollTop = terminalFeed.scrollHeight;
-
-    while (terminalFeed.children.length > 7) {
-      terminalFeed.removeChild(terminalFeed.firstChild);
-    }
+    console.debug(`[ARCHIVE-09 TELEMETRY] ${message}`);
   }
 
   // --- 3. Interactive Pupil Tracking & Proximity Tremor ---
@@ -248,29 +233,4 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   scheduleNextAutoDistort();
 
-  // --- 6. Smooth Scroll on Manifesto Portal Click ---
-  if (manifestoPortal) {
-    manifestoPortal.addEventListener('click', (e) => {
-      e.preventDefault();
-      const target = document.getElementById('archive-index');
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        appendLog('ACCESO AL ÍNDICE COGNITIVO CONCEDIDO.');
-      }
-    });
-  }
-
-  // Ambient terminal ticker
-  const ambientNotes = [
-    'ESTRATO I (LIMEN): FRECUENCIA ESTABLE.',
-    'PUPILA EN EQUILIBRIO TENSIONAL.',
-    'ESTRATO III (VELUM): SCANLINES EN FASE.',
-    'SIN DESVÍO DE HORIZONTALIDAD.'
-  ];
-  setInterval(() => {
-    if (!isCrtShutDown && Math.random() > 0.45) {
-      const msg = ambientNotes[Math.floor(Math.random() * ambientNotes.length)];
-      appendLog(msg);
-    }
-  }, 14000);
 });
